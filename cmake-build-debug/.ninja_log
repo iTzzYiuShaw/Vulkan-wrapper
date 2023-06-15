@@ -1,0 +1,6 @@
+# ninja log v5
+6	518	7085582730626650	CMakeFiles/IndividualProject.dir/Application.cpp.obj	d136dd1a3d691cba
+0	521	7085582730626650	CMakeFiles/IndividualProject.dir/main.cpp.obj	1f753d9a42d2c2d2
+14	536	7085582730815693	vulkanWrapper/CMakeFiles/vulkanLib.dir/vInstance.cpp.obj	4a639bf4a953f162
+536	592	7085582731360376	vulkanWrapper/vulkanLib.lib	e1779a2ebc21e5cf
+592	909	7085582734425610	IndividualProject.exe	1ccf9ff2ade4df85
