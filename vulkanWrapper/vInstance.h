@@ -6,7 +6,7 @@
 #define INDIVIDUALPROJECT_VINSTANCE_H
 
 #include "../base.h"
-#include <vector>
+
 namespace IP::Wrapper{
 
     class vInstance {
@@ -14,17 +14,20 @@ namespace IP::Wrapper{
     public:
 
         using Ptr = std::shared_ptr<vInstance>;
-        static Ptr create() {return std::make_shared<vInstance>();}
+        static Ptr create(bool enableValidationLayer) {return std::make_shared<vInstance>(enableValidationLayer);}
 
-        vInstance();
+        vInstance(bool enableValidationLayer);
         ~vInstance();
 
+
         void printAvailableExtensions();
+        bool checkValidationLayerSupport();
+
 
         std::vector<const char*> getRequiredExtensions();
     private:
         VkInstance mInstance;
-
+        bool mEnableValidationLayer{false};
     private:
 
     };

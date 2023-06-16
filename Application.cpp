@@ -32,7 +32,7 @@ namespace IP
     }
 
     void Application::initVulkan() {
-        mInstance = Wrapper::vInstance::create();
+        mInstance = Wrapper::vInstance::create(true);
     }
 
     void Application::mainLoop() {
