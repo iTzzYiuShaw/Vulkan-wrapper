@@ -43,9 +43,9 @@ namespace IP
     }
 
     void Application::cleanUp() {
+        mInstance.reset();
         glfwDestroyWindow(mWindow);
         glfwTerminate();
-
         std::cout << "Destroy the window" << std::endl;
     }
 }

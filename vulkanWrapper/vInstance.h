@@ -21,13 +21,16 @@ namespace IP::Wrapper{
 
 
         void printAvailableExtensions();
-        bool checkValidationLayerSupport();
 
+        //Layers
+        bool checkValidationLayerSupport();
+        void setupDebugger();
 
         std::vector<const char*> getRequiredExtensions();
     private:
         VkInstance mInstance;
         bool mEnableValidationLayer{false};
+        VkDebugUtilsMessengerEXT mDebugger;
     private:
 
     };

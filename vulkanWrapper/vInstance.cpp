@@ -11,6 +11,51 @@ namespace IP::Wrapper
             "VK_LAYER_KHRONOS_validation"
     };
 
+    //Callbacks of Validation layer
+
+    static VKAPI_ATTR VkBool32 VKAPI_CALL debugCallback(
+            VkDebugUtilsMessageSeverityFlagBitsEXT messageSeverity,
+            VkDebugUtilsMessageTypeFlagsEXT messageTypeFlag,
+            const VkDebugUtilsMessengerCallbackDataEXT* pMessageData,
+            void *pUserData
+            ){
+            std::cout << "ValidationLayer: " << pMessageData->pMessage << std::endl;
+
+            //This won't
+            return VK_FALSE;
+    }
+
+    //Assistant function to create and initialize (VkDebugUtilsMessengerEXT mDebugger)
+    //vkCreateDebugUtilsMessengerEXT is not preloaded,
+    //Therefore we need to do it by ourselves.
+    static VkResult CreateDebugUtilsMessengerEXT(VkInstance instance,
+                                                 const VkDebugUtilsMessengerCreateInfoEXT* pCreateInfo,
+                                                 const VkAllocationCallbacks* pAllocator,
+                                                 VkDebugUtilsMessengerEXT* debugMessenger){
+        //Load the creation function of VkDebugUtilsMessengerEXT
+        auto func = (PFN_vkCreateDebugUtilsMessengerEXT)vkGetInstanceProcAddr(instance,"vkCreateDebugUtilsMessengerEXT");
+
+        if (func != nullptr)
+        {
+            return func(instance,pCreateInfo,pAllocator,debugMessenger);
+        } else
+        {
+            return VK_ERROR_EXTENSION_NOT_PRESENT;
+        }
+    }
+
+    static void DestroyDebugUtilsMessengerEXT(VkInstance instance,
+                                              VkDebugUtilsMessengerEXT debugMessenger,
+                                              const VkAllocationCallbacks* pAllocator){
+        auto func = (PFN_vkDestroyDebugUtilsMessengerEXT)vkGetInstanceProcAddr(instance,"vkDestroyDebugUtilsMessengerEXT");
+
+        if (func != nullptr)
+        {
+            return func(instance,debugMessenger,pAllocator);
+        }
+
+    }
+
 
     vInstance::vInstance(bool enableValidationLayer) :
     mEnableValidationLayer(enableValidationLayer){
@@ -50,9 +95,12 @@ namespace IP::Wrapper
         {
             std::cerr << "Error: failed to create VkInstance" << std::endl;
         }
+
+        setupDebugger();
     }
 
     vInstance::~vInstance(){
+        DestroyDebugUtilsMessengerEXT(mInstance,mDebugger, nullptr);
         vkDestroyInstance(mInstance, nullptr);
         std::cout << "Destroy instance" << std::endl;
     }
@@ -82,6 +130,10 @@ namespace IP::Wrapper
         //TODO: understand this construction
         std::vector<const char*> extensions(glfwExtensions,glfwExtensions + glfwExtensionCount);
 
+        //Enabling validation layers
+        extensions.push_back(VK_EXT_DEBUG_UTILS_EXTENSION_NAME);
+
+
         return extensions;
     }
 
@@ -105,5 +157,31 @@ namespace IP::Wrapper
                 return false;
         }
         return true;
+    }
+
+    void vInstance::setupDebugger() {
+
+        if (!mEnableValidationLayer)
+            return;
+
+        VkDebugUtilsMessengerCreateInfoEXT createInfo = {};
+
+        createInfo.sType = VK_STRUCTURE_TYPE_DEBUG_UTILS_MESSENGER_CREATE_INFO_EXT;
+
+        createInfo.messageSeverity = VK_DEBUG_UTILS_MESSAGE_SEVERITY_VERBOSE_BIT_EXT |
+                VK_DEBUG_UTILS_MESSAGE_SEVERITY_WARNING_BIT_EXT |
+                VK_DEBUG_UTILS_MESSAGE_SEVERITY_ERROR_BIT_EXT;
+
+        createInfo.messageType = VK_DEBUG_UTILS_MESSAGE_TYPE_GENERAL_BIT_EXT |
+                VK_DEBUG_UTILS_MESSAGE_TYPE_VALIDATION_BIT_EXT|
+                VK_DEBUG_UTILS_MESSAGE_TYPE_PERFORMANCE_BIT_EXT;
+
+        createInfo.pfnUserCallback = debugCallback;
+        createInfo.pUserData = nullptr;
+
+        if (CreateDebugUtilsMessengerEXT(mInstance, &createInfo, nullptr,&mDebugger) != VK_SUCCESS)
+        {
+            throw  std::runtime_error("Error: failed to create debugger");
+        }
     }
 }
