@@ -25,9 +25,18 @@ namespace IP::Wrapper{
 
         bool isDeviceSuitable(VkPhysicalDevice device);
 
+        void initQueueFamilies(VkPhysicalDevice device);
+
     private:
         VkPhysicalDevice  mPhysicalDevice{VK_NULL_HANDLE};
-        vInstance::Ptr mInstance;
+        vInstance::Ptr mInstance{nullptr};
+
+        //Store the id of graphic queue family
+        std::optional<uint32_t> mGraphicQueueFamily;
+        VkQueue mGraphicQueue {VK_NULL_HANDLE};
+
+        //Logic device
+        VkDevice mDevice{VK_NULL_HANDLE};
     };
 
 }

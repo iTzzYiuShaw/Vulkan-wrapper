@@ -100,9 +100,12 @@ namespace IP::Wrapper
     }
 
     vInstance::~vInstance(){
-        DestroyDebugUtilsMessengerEXT(mInstance,mDebugger, nullptr);
+        if (mEnableValidationLayer)
+        {
+            DestroyDebugUtilsMessengerEXT(mInstance,mDebugger, nullptr);
+        }
+
         vkDestroyInstance(mInstance, nullptr);
-        std::cout << "Destroy instance" << std::endl;
     }
 
     void vInstance::printAvailableExtensions()

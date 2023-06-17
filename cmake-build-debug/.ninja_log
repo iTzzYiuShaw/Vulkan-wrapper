@@ -7,3 +7,15 @@
 1	597	7087163278038069	vulkanWrapper/CMakeFiles/vulkanLib.dir/vDevice.cpp.obj	3b5ad4cbf0b52eaf
 597	653	7087163278594674	vulkanWrapper/vulkanLib.lib	f4ea2a0c4bfa54b2
 653	869	7087163280212682	IndividualProject.exe	1ccf9ff2ade4df85
+7	948	7087181090017466	CMakeFiles/IndividualProject.dir/Application.cpp.obj	d136dd1a3d691cba
+0	949	7087181090007464	CMakeFiles/IndividualProject.dir/main.cpp.obj	1f753d9a42d2c2d2
+16	954	7087181090078269	vulkanWrapper/CMakeFiles/vulkanLib.dir/vInstance.cpp.obj	4a639bf4a953f162
+24	960	7087181090138291	vulkanWrapper/CMakeFiles/vulkanLib.dir/vDevice.cpp.obj	3b5ad4cbf0b52eaf
+960	1017	7087181090704379	vulkanWrapper/vulkanLib.lib	f4ea2a0c4bfa54b2
+1017	1196	7087181092167958	IndividualProject.exe	1ccf9ff2ade4df85
+1	680	7087183934250471	vulkanWrapper/CMakeFiles/vulkanLib.dir/vDevice.cpp.obj	3b5ad4cbf0b52eaf
+681	742	7087183934811653	vulkanWrapper/vulkanLib.lib	f4ea2a0c4bfa54b2
+742	900	7087183936146084	IndividualProject.exe	1ccf9ff2ade4df85
+1	665	7087184237439574	vulkanWrapper/CMakeFiles/vulkanLib.dir/vDevice.cpp.obj	3b5ad4cbf0b52eaf
+665	729	7087184238019940	vulkanWrapper/vulkanLib.lib	f4ea2a0c4bfa54b2
+729	889	7087184239364258	IndividualProject.exe	1ccf9ff2ade4df85

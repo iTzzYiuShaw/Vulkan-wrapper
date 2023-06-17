@@ -7,6 +7,7 @@ namespace IP::Wrapper
 {
     vDevice::vDevice(vInstance::Ptr instance) {
         mInstance = instance;
+        pickPhysicalDevice();
     }
 
 
@@ -23,6 +24,8 @@ namespace IP::Wrapper
         }
 
         std::vector<VkPhysicalDevice> physicalDevices(deviceCount);
+        vkEnumeratePhysicalDevices(mInstance->getInstance(),&deviceCount,physicalDevices.data());
+
         std::multimap<int,VkPhysicalDevice> candidates;
         for (const auto& device: physicalDevices) {
             int score = rateDevice(device);
