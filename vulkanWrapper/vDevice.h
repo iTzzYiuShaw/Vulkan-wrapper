@@ -27,6 +27,8 @@ namespace IP::Wrapper{
 
         void initQueueFamilies(VkPhysicalDevice device);
 
+        void createLogicalDevice();
+
     private:
         VkPhysicalDevice  mPhysicalDevice{VK_NULL_HANDLE};
         vInstance::Ptr mInstance{nullptr};

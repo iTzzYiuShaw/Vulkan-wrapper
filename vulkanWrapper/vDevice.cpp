@@ -8,11 +8,74 @@ namespace IP::Wrapper
     vDevice::vDevice(vInstance::Ptr instance) {
         mInstance = instance;
         pickPhysicalDevice();
+        initQueueFamilies(mPhysicalDevice);
+        createLogicalDevice();
     }
 
 
     vDevice::~vDevice() {
+        vkDestroyDevice(mDevice, nullptr);
         mInstance.reset();
+    }
+
+
+    void vDevice::createLogicalDevice() {
+
+
+        VkDeviceQueueCreateInfo queueCreateInfo = {};
+        queueCreateInfo.sType = VK_STRUCTURE_TYPE_DEVICE_QUEUE_CREATE_INFO;
+        queueCreateInfo.queueFamilyIndex = mGraphicQueueFamily.value();
+        queueCreateInfo.queueCount = 1;
+
+        float queuePriority = 1.0;
+        queueCreateInfo.pQueuePriorities = &queuePriority;
+
+        //TODO:can be used to enable different features
+        VkPhysicalDeviceFeatures deviceFeatures = {};
+
+        VkDeviceCreateInfo deviceCreateInfo = {};
+        deviceCreateInfo.sType = VK_STRUCTURE_TYPE_DEVICE_CREATE_INFO;
+        deviceCreateInfo.pQueueCreateInfos = &queueCreateInfo;
+        deviceCreateInfo.queueCreateInfoCount = 1;
+        deviceCreateInfo.pEnabledFeatures = &deviceFeatures;
+        deviceCreateInfo.enabledExtensionCount = 0;
+
+
+        if (mInstance->getEnableValidationLayer()) {
+            deviceCreateInfo.enabledLayerCount = static_cast<uint32_t>(validationLayers.size());
+            deviceCreateInfo.ppEnabledLayerNames = validationLayers.data();
+        }
+        else {
+            deviceCreateInfo.enabledLayerCount = 0;
+        }
+
+        if (vkCreateDevice(mPhysicalDevice, &deviceCreateInfo, nullptr, &mDevice) != VK_SUCCESS) {
+            throw std::runtime_error("Error:failed to create logical device");
+        }
+
+        vkGetDeviceQueue(mDevice, mGraphicQueueFamily.value(), 0, &mGraphicQueue);
+    }
+
+    void vDevice::initQueueFamilies(VkPhysicalDevice device) {
+        uint32_t queueCount = 0;
+        vkGetPhysicalDeviceQueueFamilyProperties(device,&queueCount, nullptr);
+
+        std::vector<VkQueueFamilyProperties> queueFamilies(queueCount);
+        vkGetPhysicalDeviceQueueFamilyProperties(device,&queueCount,queueFamilies.data());
+
+        int graphicQueueId = 0;
+
+        for (const auto& queueFamily:queueFamilies) {
+            if (queueFamily.queueCount > 0 && queueFamily.queueFlags & VK_QUEUE_GRAPHICS_BIT)
+            {
+                mGraphicQueueFamily = graphicQueueId;
+            }
+            if (mGraphicQueueFamily.has_value())
+            {
+                break;
+            }
+            ++graphicQueueId;
+        }
     }
 
     void vDevice::pickPhysicalDevice() {

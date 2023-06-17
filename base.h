@@ -18,5 +18,10 @@
 #include <GLFW/glfw3.h>
 #include <vulkan/vulkan.h>
 
+//Enable validation layer
+//Can be used in all encapsulated vulkan class
+const std::vector<const char*> validationLayers = {
+        "VK_LAYER_KHRONOS_validation"
+};
 
 #endif //INDIVIDUALPROJECT_BASE_H
