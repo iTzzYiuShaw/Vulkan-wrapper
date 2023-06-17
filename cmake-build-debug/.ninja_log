@@ -1,16 +1,9 @@
 # ninja log v5
-6	518	7085582730626650	CMakeFiles/IndividualProject.dir/Application.cpp.obj	d136dd1a3d691cba
-0	521	7085582730626650	CMakeFiles/IndividualProject.dir/main.cpp.obj	1f753d9a42d2c2d2
-14	536	7085582730815693	vulkanWrapper/CMakeFiles/vulkanLib.dir/vInstance.cpp.obj	4a639bf4a953f162
-536	592	7085582731360376	vulkanWrapper/vulkanLib.lib	e1779a2ebc21e5cf
-592	909	7085582734425610	IndividualProject.exe	1ccf9ff2ade4df85
-1	1134	7086127961064079	CMakeFiles/IndividualProject.dir/main.cpp.obj	1f753d9a42d2c2d2
-22	1135	7086127961064079	CMakeFiles/IndividualProject.dir/Application.cpp.obj	d136dd1a3d691cba
-34	1139	7086127961114073	vulkanWrapper/CMakeFiles/vulkanLib.dir/vInstance.cpp.obj	4a639bf4a953f162
-1139	1565	7086127965355167	vulkanWrapper/vulkanLib.lib	e1779a2ebc21e5cf
-1565	1898	7086127968032513	IndividualProject.exe	1ccf9ff2ade4df85
-14	1037	7086371081555645	CMakeFiles/IndividualProject.dir/Application.cpp.obj	d136dd1a3d691cba
-1	1037	7086371081555645	CMakeFiles/IndividualProject.dir/main.cpp.obj	1f753d9a42d2c2d2
-28	1041	7086371081615507	vulkanWrapper/CMakeFiles/vulkanLib.dir/vInstance.cpp.obj	4a639bf4a953f162
-1041	1426	7086371085456353	vulkanWrapper/vulkanLib.lib	e1779a2ebc21e5cf
+27	991	7087159232990772	CMakeFiles/IndividualProject.dir/Application.cpp.obj	d136dd1a3d691cba
+1	990	7087159232969596	CMakeFiles/IndividualProject.dir/main.cpp.obj	1f753d9a42d2c2d2
+34	1005	7087159233125712	vulkanWrapper/CMakeFiles/vulkanLib.dir/vInstance.cpp.obj	4a639bf4a953f162
+1005	1430	7087159237388304	vulkanWrapper/vulkanLib.lib	e1779a2ebc21e5cf
 1426	1639	7086371087269860	IndividualProject.exe	1ccf9ff2ade4df85
+1	597	7087163278038069	vulkanWrapper/CMakeFiles/vulkanLib.dir/vDevice.cpp.obj	3b5ad4cbf0b52eaf
+597	653	7087163278594674	vulkanWrapper/vulkanLib.lib	f4ea2a0c4bfa54b2
+653	869	7087163280212682	IndividualProject.exe	1ccf9ff2ade4df85

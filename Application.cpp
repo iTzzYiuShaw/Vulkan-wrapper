@@ -33,6 +33,7 @@ namespace IP
 
     void Application::initVulkan() {
         mInstance = Wrapper::vInstance::create(true);
+        mDevice = Wrapper::vDevice::create(mInstance);
     }
 
     void Application::mainLoop() {
@@ -43,6 +44,7 @@ namespace IP
     }
 
     void Application::cleanUp() {
+        mDevice.reset();
         mInstance.reset();
         glfwDestroyWindow(mWindow);
         glfwTerminate();

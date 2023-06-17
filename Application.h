@@ -7,6 +7,7 @@
 
 #include "base.h"
 #include "vulkanWrapper/vInstance.h"
+#include "vulkanWrapper/vDevice.h"
 namespace IP
 {
     const int WIDTH = 800;
@@ -30,7 +31,8 @@ namespace IP
 
     private:
         GLFWwindow* mWindow{NULL};
-        Wrapper::vInstance::Ptr mInstance;
+        Wrapper::vInstance::Ptr mInstance {nullptr};
+        Wrapper::vDevice::Ptr mDevice {nullptr};
     };
 }
 

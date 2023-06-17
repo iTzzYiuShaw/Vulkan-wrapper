@@ -10,6 +10,7 @@
 #include <memory>
 #include <vector>
 #include <string>
+#include <map>
 #include <glm/glm.hpp>
 
 #define GLFW_INCLUDE_VULKAN

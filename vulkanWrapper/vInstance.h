@@ -26,7 +26,11 @@ namespace IP::Wrapper{
         bool checkValidationLayerSupport();
         void setupDebugger();
 
+        //Getter
         std::vector<const char*> getRequiredExtensions();
+
+       [[nodiscard]] VkInstance getInstance() const {return mInstance;};
+
     private:
         VkInstance mInstance;
         bool mEnableValidationLayer{false};
