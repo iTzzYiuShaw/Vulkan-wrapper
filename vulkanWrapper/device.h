@@ -2,22 +2,22 @@
 // Created by Shawwy on 6/16/2023.
 //
 
-#ifndef INDIVIDUALPROJECT_VDEVICE_H
-#define INDIVIDUALPROJECT_VDEVICE_H
+#ifndef INDIVIDUALPROJECT_DEVICE_H
+#define INDIVIDUALPROJECT_DEVICE_H
 
 #include "../base.h"
-#include "vInstance.h"
+#include "instance.h"
 
 namespace IP::Wrapper{
 
-    class vDevice {
+    class device {
 
     public:
-        using Ptr = std::shared_ptr<vDevice>;
-        static Ptr create(vInstance::Ptr instance) {return std::make_shared<vDevice>(instance);}
+        using Ptr = std::shared_ptr<device>;
+        static Ptr create(instance::Ptr instance) {return std::make_shared<device>(instance);}
 
-        vDevice(vInstance::Ptr instance);
-        ~vDevice();
+        device(instance::Ptr instance);
+        ~device();
 
         void pickPhysicalDevice();
 
@@ -31,7 +31,7 @@ namespace IP::Wrapper{
 
     private:
         VkPhysicalDevice  mPhysicalDevice{VK_NULL_HANDLE};
-        vInstance::Ptr mInstance{nullptr};
+        instance::Ptr mInstance{nullptr};
 
         //Store the id of graphic queue family
         std::optional<uint32_t> mGraphicQueueFamily;
@@ -44,4 +44,4 @@ namespace IP::Wrapper{
 }
 
 
-#endif //INDIVIDUALPROJECT_VDEVICE_H
+#endif //INDIVIDUALPROJECT_DEVICE_H

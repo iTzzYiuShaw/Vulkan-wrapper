@@ -6,8 +6,8 @@
 #define INDIVIDUALPROJECT_APPLICATION_H
 
 #include "base.h"
-#include "vulkanWrapper/vInstance.h"
-#include "vulkanWrapper/vDevice.h"
+#include "vulkanWrapper/instance.h"
+#include "vulkanWrapper/device.h"
 namespace IP
 {
     const int WIDTH = 800;
@@ -31,8 +31,8 @@ namespace IP
 
     private:
         GLFWwindow* mWindow{NULL};
-        Wrapper::vInstance::Ptr mInstance {nullptr};
-        Wrapper::vDevice::Ptr mDevice {nullptr};
+        Wrapper::instance::Ptr mInstance {nullptr};
+        Wrapper::device::Ptr mDevice {nullptr};
     };
 }
 

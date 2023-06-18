@@ -2,7 +2,7 @@
 // Created by Shawwy on 6/13/2023.
 //
 
-#include "vInstance.h"
+#include "instance.h"
 
 namespace IP::Wrapper
 {
@@ -54,7 +54,7 @@ namespace IP::Wrapper
     }
 
 
-    vInstance::vInstance(bool enableValidationLayer) :
+    instance::instance(bool enableValidationLayer) :
     mEnableValidationLayer(enableValidationLayer){
 
         printAvailableExtensions();
@@ -96,7 +96,7 @@ namespace IP::Wrapper
         setupDebugger();
     }
 
-    vInstance::~vInstance(){
+    instance::~instance(){
         if (mEnableValidationLayer)
         {
             DestroyDebugUtilsMessengerEXT(mInstance,mDebugger, nullptr);
@@ -105,7 +105,7 @@ namespace IP::Wrapper
         vkDestroyInstance(mInstance, nullptr);
     }
 
-    void vInstance::printAvailableExtensions()
+    void instance::printAvailableExtensions()
     {
         uint32_t extensionCount = 0;
         vkEnumerateInstanceExtensionProperties(nullptr,&extensionCount, nullptr);
@@ -122,7 +122,7 @@ namespace IP::Wrapper
 
     }
 
-    std::vector<const char*> vInstance::getRequiredExtensions() {
+    std::vector<const char*> instance::getRequiredExtensions() {
         uint32_t glfwExtensionCount = 0;
 
         const char** glfwExtensions = glfwGetRequiredInstanceExtensions(&glfwExtensionCount);
@@ -137,7 +137,7 @@ namespace IP::Wrapper
         return extensions;
     }
 
-    bool vInstance::checkValidationLayerSupport() {
+    bool instance::checkValidationLayerSupport() {
         uint32_t layerCount = 0;
         vkEnumerateInstanceLayerProperties(&layerCount, nullptr);
 
@@ -159,7 +159,7 @@ namespace IP::Wrapper
         return true;
     }
 
-    void vInstance::setupDebugger() {
+    void instance::setupDebugger() {
 
         if (!mEnableValidationLayer)
             return;

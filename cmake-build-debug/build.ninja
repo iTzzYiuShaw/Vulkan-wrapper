@@ -123,7 +123,7 @@ build rebuild_cache: phony CMakeFiles\rebuild_cache.util
 
 build cmake_object_order_depends_target_vulkanLib: phony || vulkanWrapper\CMakeFiles\vulkanLib.dir
 
-build vulkanWrapper\CMakeFiles\vulkanLib.dir\vDevice.cpp.obj: CXX_COMPILER__vulkanLib_Debug D$:\Softwares\Clion\IP\vulkanWrapper\vDevice.cpp || cmake_object_order_depends_target_vulkanLib
+build vulkanWrapper\CMakeFiles\vulkanLib.dir\device.cpp.obj: CXX_COMPILER__vulkanLib_Debug D$:\Softwares\Clion\IP\vulkanWrapper\device.cpp || cmake_object_order_depends_target_vulkanLib
   FLAGS = /DWIN32 /D_WINDOWS /EHsc /Zi /Ob0 /Od /RTC1 -MDd -std:c++17
   INCLUDES = -external:ID:\Softwares\Clion\IP\Thirdparty\glm\include -external:ID:\Softwares\Clion\IP\Thirdparty\glfw\include -external:ID:\Softwares\Clion\IP\Thirdparty\Vulkan\Include -external:W0
   OBJECT_DIR = vulkanWrapper\CMakeFiles\vulkanLib.dir
@@ -131,7 +131,7 @@ build vulkanWrapper\CMakeFiles\vulkanLib.dir\vDevice.cpp.obj: CXX_COMPILER__vulk
   TARGET_COMPILE_PDB = vulkanWrapper\CMakeFiles\vulkanLib.dir\vulkanLib.pdb
   TARGET_PDB = vulkanWrapper\vulkanLib.pdb
 
-build vulkanWrapper\CMakeFiles\vulkanLib.dir\vInstance.cpp.obj: CXX_COMPILER__vulkanLib_Debug D$:\Softwares\Clion\IP\vulkanWrapper\vInstance.cpp || cmake_object_order_depends_target_vulkanLib
+build vulkanWrapper\CMakeFiles\vulkanLib.dir\instance.cpp.obj: CXX_COMPILER__vulkanLib_Debug D$:\Softwares\Clion\IP\vulkanWrapper\instance.cpp || cmake_object_order_depends_target_vulkanLib
   FLAGS = /DWIN32 /D_WINDOWS /EHsc /Zi /Ob0 /Od /RTC1 -MDd -std:c++17
   INCLUDES = -external:ID:\Softwares\Clion\IP\Thirdparty\glm\include -external:ID:\Softwares\Clion\IP\Thirdparty\glfw\include -external:ID:\Softwares\Clion\IP\Thirdparty\Vulkan\Include -external:W0
   OBJECT_DIR = vulkanWrapper\CMakeFiles\vulkanLib.dir
@@ -147,7 +147,7 @@ build vulkanWrapper\CMakeFiles\vulkanLib.dir\vInstance.cpp.obj: CXX_COMPILER__vu
 #############################################
 # Link the static library vulkanWrapper\vulkanLib.lib
 
-build vulkanWrapper\vulkanLib.lib: CXX_STATIC_LIBRARY_LINKER__vulkanLib_Debug vulkanWrapper\CMakeFiles\vulkanLib.dir\vDevice.cpp.obj vulkanWrapper\CMakeFiles\vulkanLib.dir\vInstance.cpp.obj
+build vulkanWrapper\vulkanLib.lib: CXX_STATIC_LIBRARY_LINKER__vulkanLib_Debug vulkanWrapper\CMakeFiles\vulkanLib.dir\device.cpp.obj vulkanWrapper\CMakeFiles\vulkanLib.dir\instance.cpp.obj
   LANGUAGE_COMPILE_FLAGS = /DWIN32 /D_WINDOWS /EHsc /Zi /Ob0 /Od /RTC1 -MDd
   LINK_FLAGS = /machine:x64
   OBJECT_DIR = vulkanWrapper\CMakeFiles\vulkanLib.dir

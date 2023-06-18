@@ -2,22 +2,22 @@
 // Created by Shawwy on 6/13/2023.
 //
 #pragma once
-#ifndef INDIVIDUALPROJECT_VINSTANCE_H
-#define INDIVIDUALPROJECT_VINSTANCE_H
+#ifndef INDIVIDUALPROJECT_INSTANCE_H
+#define INDIVIDUALPROJECT_INSTANCE_H
 
 #include "../base.h"
 
 namespace IP::Wrapper{
 
-    class vInstance {
+    class instance {
 
     public:
 
-        using Ptr = std::shared_ptr<vInstance>;
-        static Ptr create(bool enableValidationLayer) {return std::make_shared<vInstance>(enableValidationLayer);}
+        using Ptr = std::shared_ptr<instance>;
+        static Ptr create(bool enableValidationLayer) {return std::make_shared<instance>(enableValidationLayer);}
 
-        vInstance(bool enableValidationLayer);
-        ~vInstance();
+        instance(bool enableValidationLayer);
+        ~instance();
 
 
         void printAvailableExtensions();
@@ -43,4 +43,4 @@ namespace IP::Wrapper{
 
 
 
-#endif //INDIVIDUALPROJECT_VINSTANCE_H
+#endif //INDIVIDUALPROJECT_INSTANCE_H

@@ -120,13 +120,13 @@
 		{
 			"backtrace" : 1,
 			"compileGroupIndex" : 0,
-			"path" : "vulkanWrapper/vDevice.cpp",
+			"path" : "vulkanWrapper/device.cpp",
 			"sourceGroupIndex" : 0
 		},
 		{
 			"backtrace" : 1,
 			"compileGroupIndex" : 0,
-			"path" : "vulkanWrapper/vInstance.cpp",
+			"path" : "vulkanWrapper/instance.cpp",
 			"sourceGroupIndex" : 0
 		}
 	],

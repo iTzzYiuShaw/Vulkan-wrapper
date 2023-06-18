@@ -32,8 +32,8 @@ namespace IP
     }
 
     void Application::initVulkan() {
-        mInstance = Wrapper::vInstance::create(true);
-        mDevice = Wrapper::vDevice::create(mInstance);
+        mInstance = Wrapper::instance::create(true);
+        mDevice = Wrapper::device::create(mInstance);
     }
 
     void Application::mainLoop() {

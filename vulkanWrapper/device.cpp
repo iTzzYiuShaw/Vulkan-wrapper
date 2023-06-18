@@ -1,11 +1,11 @@
 //
 // Created by Shawwy on 6/16/2023.
 //
-#include "vDevice.h"
+#include "device.h"
 
 namespace IP::Wrapper
 {
-    vDevice::vDevice(vInstance::Ptr instance) {
+    device::device(instance::Ptr instance) {
         mInstance = instance;
         pickPhysicalDevice();
         initQueueFamilies(mPhysicalDevice);
@@ -13,14 +13,13 @@ namespace IP::Wrapper
     }
 
 
-    vDevice::~vDevice() {
+    device::~device() {
         vkDestroyDevice(mDevice, nullptr);
         mInstance.reset();
     }
 
 
-    void vDevice::createLogicalDevice() {
-
+    void device::createLogicalDevice() {
 
         VkDeviceQueueCreateInfo queueCreateInfo = {};
         queueCreateInfo.sType = VK_STRUCTURE_TYPE_DEVICE_QUEUE_CREATE_INFO;
@@ -56,7 +55,7 @@ namespace IP::Wrapper
         vkGetDeviceQueue(mDevice, mGraphicQueueFamily.value(), 0, &mGraphicQueue);
     }
 
-    void vDevice::initQueueFamilies(VkPhysicalDevice device) {
+    void device::initQueueFamilies(VkPhysicalDevice device) {
         uint32_t queueCount = 0;
         vkGetPhysicalDeviceQueueFamilyProperties(device,&queueCount, nullptr);
 
@@ -78,7 +77,7 @@ namespace IP::Wrapper
         }
     }
 
-    void vDevice::pickPhysicalDevice() {
+    void device::pickPhysicalDevice() {
         uint32_t deviceCount = 0;
         vkEnumeratePhysicalDevices(mInstance->getInstance(),&deviceCount, nullptr);
 
@@ -106,7 +105,7 @@ namespace IP::Wrapper
         }
     }
 
-    int vDevice::rateDevice(VkPhysicalDevice device) {
+    int device::rateDevice(VkPhysicalDevice device) {
         int score = 0;
 
         //Acquire device properties, for example: name and type of the device, supported version of Vulkan etc.
@@ -130,7 +129,7 @@ namespace IP::Wrapper
         return score;
     }
 
-    bool vDevice::isDeviceSuitable(VkPhysicalDevice device) {
+    bool device::isDeviceSuitable(VkPhysicalDevice device) {
         //Acquire device properties, for example: name and type of the device, supported version of Vulkan etc.
         VkPhysicalDeviceProperties deviceProp;
         vkGetPhysicalDeviceProperties(device,&deviceProp);
