@@ -15,39 +15,26 @@ namespace IP
 
     void Application::initWindow()
     {
-        glfwInit();
-
-        //setting up environment, inactivate opengl API
-        //and ban any changes on window's size
-        glfwWindowHint(GLFW_CLIENT_API, GLFW_NO_API);
-        glfwWindowHint(GLFW_RESIZABLE, GLFW_FALSE);
-
-        mWindow = glfwCreateWindow(WIDTH,HEIGHT,"IndividualProject", nullptr, nullptr);
-        if (!mWindow) {
-            std::cerr << "Error: failed to create window;" << std::endl;
-        }else
-        {
-            std::cout << "Successfully create the window " << std::endl;
-        }
+        mWindow = Wrapper::Window::create(WIDTH,HEIGHT);
     }
 
     void Application::initVulkan() {
-        mInstance = Wrapper::instance::create(true);
-        mDevice = Wrapper::device::create(mInstance);
+        mInstance = Wrapper::Instance::create(true);
+        mSurface = Wrapper::WindowSurface::create(mInstance, mWindow);
+        mDevice = Wrapper::Device::create(mInstance);
     }
 
     void Application::mainLoop() {
-        while(!glfwWindowShouldClose(mWindow))
+        while(!mWindow->shouldClose())
         {
-            glfwPollEvents();
+            mWindow->pollEvents();
         }
     }
 
     void Application::cleanUp() {
         mDevice.reset();
+        mSurface.reset();
         mInstance.reset();
-        glfwDestroyWindow(mWindow);
-        glfwTerminate();
-        std::cout << "Destroy the window" << std::endl;
+        mWindow.reset();
     }
 }

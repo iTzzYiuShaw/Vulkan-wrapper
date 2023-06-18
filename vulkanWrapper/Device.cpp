@@ -1,11 +1,11 @@
 //
 // Created by Shawwy on 6/16/2023.
 //
-#include "device.h"
+#include "Device.h"
 
 namespace IP::Wrapper
 {
-    device::device(instance::Ptr instance) {
+    Device::Device(Instance::Ptr instance) {
         mInstance = instance;
         pickPhysicalDevice();
         initQueueFamilies(mPhysicalDevice);
@@ -13,13 +13,13 @@ namespace IP::Wrapper
     }
 
 
-    device::~device() {
+    Device::~Device() {
         vkDestroyDevice(mDevice, nullptr);
         mInstance.reset();
     }
 
 
-    void device::createLogicalDevice() {
+    void Device::createLogicalDevice() {
 
         VkDeviceQueueCreateInfo queueCreateInfo = {};
         queueCreateInfo.sType = VK_STRUCTURE_TYPE_DEVICE_QUEUE_CREATE_INFO;
@@ -49,13 +49,13 @@ namespace IP::Wrapper
         }
 
         if (vkCreateDevice(mPhysicalDevice, &deviceCreateInfo, nullptr, &mDevice) != VK_SUCCESS) {
-            throw std::runtime_error("Error:failed to create logical device");
+            throw std::runtime_error("Error:failed to create logical Device");
         }
 
         vkGetDeviceQueue(mDevice, mGraphicQueueFamily.value(), 0, &mGraphicQueue);
     }
 
-    void device::initQueueFamilies(VkPhysicalDevice device) {
+    void Device::initQueueFamilies(VkPhysicalDevice device) {
         uint32_t queueCount = 0;
         vkGetPhysicalDeviceQueueFamilyProperties(device,&queueCount, nullptr);
 
@@ -77,7 +77,7 @@ namespace IP::Wrapper
         }
     }
 
-    void device::pickPhysicalDevice() {
+    void Device::pickPhysicalDevice() {
         uint32_t deviceCount = 0;
         vkEnumeratePhysicalDevices(mInstance->getInstance(),&deviceCount, nullptr);
 
@@ -105,14 +105,14 @@ namespace IP::Wrapper
         }
     }
 
-    int device::rateDevice(VkPhysicalDevice device) {
+    int Device::rateDevice(VkPhysicalDevice device) {
         int score = 0;
 
-        //Acquire device properties, for example: name and type of the device, supported version of Vulkan etc.
+        //Acquire Device properties, for example: name and type of the Device, supported version of Vulkan etc.
         VkPhysicalDeviceProperties deviceProp;
         vkGetPhysicalDeviceProperties(device,&deviceProp);
 
-        //Acquire device features, for example: texture compression
+        //Acquire Device features, for example: texture compression
         VkPhysicalDeviceFeatures deviceFeatures;
         vkGetPhysicalDeviceFeatures(device, &deviceFeatures);
 
@@ -129,12 +129,12 @@ namespace IP::Wrapper
         return score;
     }
 
-    bool device::isDeviceSuitable(VkPhysicalDevice device) {
-        //Acquire device properties, for example: name and type of the device, supported version of Vulkan etc.
+    bool Device::isDeviceSuitable(VkPhysicalDevice device) {
+        //Acquire Device properties, for example: name and type of the Device, supported version of Vulkan etc.
         VkPhysicalDeviceProperties deviceProp;
         vkGetPhysicalDeviceProperties(device,&deviceProp);
 
-        //Acquire device features, for example: texture compression
+        //Acquire Device features, for example: texture compression
         VkPhysicalDeviceFeatures deviceFeatures;
         vkGetPhysicalDeviceFeatures(device, &deviceFeatures);
 

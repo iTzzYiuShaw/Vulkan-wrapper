@@ -9,15 +9,15 @@
 
 namespace IP::Wrapper{
 
-    class instance {
+    class Instance {
 
     public:
 
-        using Ptr = std::shared_ptr<instance>;
-        static Ptr create(bool enableValidationLayer) {return std::make_shared<instance>(enableValidationLayer);}
+        using Ptr = std::shared_ptr<Instance>;
+        static Ptr create(bool enableValidationLayer) {return std::make_shared<Instance>(enableValidationLayer);}
 
-        instance(bool enableValidationLayer);
-        ~instance();
+        Instance(bool enableValidationLayer);
+        ~Instance();
 
 
         void printAvailableExtensions();

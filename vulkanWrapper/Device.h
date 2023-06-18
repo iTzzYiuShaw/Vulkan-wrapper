@@ -6,18 +6,18 @@
 #define INDIVIDUALPROJECT_DEVICE_H
 
 #include "../base.h"
-#include "instance.h"
+#include "Instance.h"
 
 namespace IP::Wrapper{
 
-    class device {
+    class Device {
 
     public:
-        using Ptr = std::shared_ptr<device>;
-        static Ptr create(instance::Ptr instance) {return std::make_shared<device>(instance);}
+        using Ptr = std::shared_ptr<Device>;
+        static Ptr create(Instance::Ptr instance) {return std::make_shared<Device>(instance);}
 
-        device(instance::Ptr instance);
-        ~device();
+        Device(Instance::Ptr instance);
+        ~Device();
 
         void pickPhysicalDevice();
 
@@ -31,13 +31,13 @@ namespace IP::Wrapper{
 
     private:
         VkPhysicalDevice  mPhysicalDevice{VK_NULL_HANDLE};
-        instance::Ptr mInstance{nullptr};
+        Instance::Ptr mInstance{nullptr};
 
         //Store the id of graphic queue family
         std::optional<uint32_t> mGraphicQueueFamily;
         VkQueue mGraphicQueue {VK_NULL_HANDLE};
 
-        //Logic device
+        //Logic Device
         VkDevice mDevice{VK_NULL_HANDLE};
     };
 
