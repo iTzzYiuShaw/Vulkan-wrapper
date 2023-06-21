@@ -37,6 +37,7 @@ namespace IP
 
     private:
         void createPipeline();
+        void createRenderPass();
 
     private:
         Wrapper::Window::Ptr mWindow{ nullptr };
@@ -45,6 +46,7 @@ namespace IP
         Wrapper::WindowSurface::Ptr mSurface{ nullptr };
         Wrapper::SwapChain::Ptr mSwapChain{ nullptr };
         Wrapper::Pipeline::Ptr mPipeline{ nullptr };
+        Wrapper::RenderPass::Ptr mRenderPass{nullptr};
     };
 }
 

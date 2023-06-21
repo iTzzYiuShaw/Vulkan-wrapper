@@ -24,6 +24,9 @@ namespace IP
         mDevice = Wrapper::Device::create(mInstance,mSurface);
         mSwapChain = Wrapper::SwapChain::create(mDevice, mWindow, mSurface);
 
+        mRenderPass = Wrapper::RenderPass::create(mDevice);
+        createRenderPass();
+
         mPipeline = Wrapper::Pipeline::create(mDevice);
         createPipeline();
     }
@@ -145,5 +148,43 @@ namespace IP
         mPipeline->mLayoutState.pPushConstantRanges = nullptr;
 
         mPipeline->build();
+    }
+    void Application::createRenderPass() {
+
+        VkAttachmentDescription attachmentDes{};
+        attachmentDes.format = mSwapChain->getFormat();
+        attachmentDes.samples = VK_SAMPLE_COUNT_1_BIT;
+        attachmentDes.loadOp = VK_ATTACHMENT_LOAD_OP_CLEAR;
+        attachmentDes.storeOp = VK_ATTACHMENT_STORE_OP_STORE;
+        attachmentDes.stencilLoadOp = VK_ATTACHMENT_LOAD_OP_DONT_CARE;
+        attachmentDes.stencilStoreOp = VK_ATTACHMENT_STORE_OP_DONT_CARE;
+        attachmentDes.initialLayout = VK_IMAGE_LAYOUT_UNDEFINED;
+        attachmentDes.finalLayout = VK_IMAGE_LAYOUT_PRESENT_SRC_KHR;
+
+        mRenderPass->addAttachment(attachmentDes);
+
+        VkAttachmentReference attachmentRef{};
+        attachmentRef.attachment = 0;
+        attachmentRef.layout = VK_IMAGE_LAYOUT_COLOR_ATTACHMENT_OPTIMAL;
+
+        //Create subpass
+        Wrapper::SubPass subPass{};
+        subPass.addColorAttachmentReference(attachmentRef);
+        subPass.buildSubPassDescription();
+
+        mRenderPass->addSubPass(subPass);
+
+        //Define dependencies between subpasses
+        VkSubpassDependency dependency{};
+        dependency.srcSubpass = VK_SUBPASS_EXTERNAL;
+        dependency.dstSubpass = 0;
+        dependency.srcStageMask = VK_PIPELINE_STAGE_COLOR_ATTACHMENT_OUTPUT_BIT;
+        dependency.srcAccessMask = 0;
+        dependency.dstStageMask = VK_PIPELINE_STAGE_COLOR_ATTACHMENT_OUTPUT_BIT;
+        dependency.dstAccessMask = VK_ACCESS_COLOR_ATTACHMENT_READ_BIT | VK_ACCESS_COLOR_ATTACHMENT_WRITE_BIT;
+
+        mRenderPass->addDependency(dependency);
+
+        mRenderPass->buildRenderPass();
     }
 }

@@ -4,16 +4,14 @@
 #include "device.h"
 
 namespace IP::Wrapper {
-	//˼·
-	/*
-	* 1 attachment  
-	VkAttachmentDescription������һ����ɫ�������ģ�帽�ŵĽṹ����������һ�������ĸ��ţ�����һ�ֵ���������
-	VkAttachmentDescription1 VkAttachmentDescription2 VkAttachmentDescription3 VkAttachmentDescription4�����ģ�壩��������磬��Ҫʲô
-	VkAttachmentReference ˵������SubPass ��Ҫ��attachment���е�һ������һ������������id�Ƕ��٣���һ�����ŵ�ͼƬ������ʽ��ʲô
-	VkSubpassDescription������дһ����Pass�������ṹ
-	VkSubpassDependency��������ͬ��������֮���������ϵ
+	/**
+	 *1 attachment
+	 * VkAttachmentDescription: Describing a structure for a color or depth stencil attachment, it's not a real attachment, but a mere description.
+	 * VkAttachmentDescription1 VkAttachmentDescription2 VkAttachmentDescription3 VkAttachmentDescription4: Announce what formats are required to the external processes
+	 * VkAttachmentReference: Illustrate which attachment among all attachments is required, including its index and expected format
+	 * VkSubpassDescription:
+	 * VkSubpassDependency: Describe dependencies between different subpasses
 	*/
-
 	class SubPass {
 	public:
 		SubPass();
@@ -37,6 +35,9 @@ namespace IP::Wrapper {
 		VkAttachmentReference mDepthStencilAttachmentReference{};
 	};
 
+
+
+    //Render pass
 	class RenderPass {
 	public:
 		using Ptr = std::shared_ptr<RenderPass>;

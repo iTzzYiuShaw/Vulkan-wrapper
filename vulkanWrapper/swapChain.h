@@ -40,6 +40,9 @@ namespace IP::Wrapper {
 
         void createFrameBuffers(const RenderPass::Ptr &renderPass);
 
+    public:
+        [[nodiscard]] auto getFormat() const { return mSwapChainFormat; }
+
 	private:
 		VkImageView createImageView(VkImage image, VkFormat format, VkImageAspectFlags aspectFlags, uint32_t mipLevels = 1);
 
