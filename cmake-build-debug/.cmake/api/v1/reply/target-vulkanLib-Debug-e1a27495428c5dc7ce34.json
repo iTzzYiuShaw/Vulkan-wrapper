@@ -94,7 +94,11 @@
 				0,
 				1,
 				2,
-				3
+				3,
+				4,
+				5,
+				6,
+				7
 			]
 		}
 	],
@@ -115,7 +119,11 @@
 				0,
 				1,
 				2,
-				3
+				3,
+				4,
+				5,
+				6,
+				7
 			]
 		}
 	],
@@ -124,25 +132,49 @@
 		{
 			"backtrace" : 1,
 			"compileGroupIndex" : 0,
-			"path" : "vulkanWrapper/device.cpp",
+			"path" : "vulkanWrapper/Device.cpp",
 			"sourceGroupIndex" : 0
 		},
 		{
 			"backtrace" : 1,
 			"compileGroupIndex" : 0,
-			"path" : "vulkanWrapper/instance.cpp",
+			"path" : "vulkanWrapper/Instance.cpp",
 			"sourceGroupIndex" : 0
 		},
 		{
 			"backtrace" : 1,
 			"compileGroupIndex" : 0,
-			"path" : "vulkanWrapper/window.cpp",
+			"path" : "vulkanWrapper/Window.cpp",
 			"sourceGroupIndex" : 0
 		},
 		{
 			"backtrace" : 1,
 			"compileGroupIndex" : 0,
-			"path" : "vulkanWrapper/windowSurface.cpp",
+			"path" : "vulkanWrapper/WindowSurface.cpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "vulkanWrapper/pipline.cpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "vulkanWrapper/renderPass.cpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "vulkanWrapper/shader.cpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "vulkanWrapper/swapChain.cpp",
 			"sourceGroupIndex" : 0
 		}
 	],

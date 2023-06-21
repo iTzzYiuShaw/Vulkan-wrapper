@@ -123,7 +123,7 @@ build rebuild_cache: phony CMakeFiles\rebuild_cache.util
 
 build cmake_object_order_depends_target_vulkanLib: phony || vulkanWrapper\CMakeFiles\vulkanLib.dir
 
-build vulkanWrapper\CMakeFiles\vulkanLib.dir\device.cpp.obj: CXX_COMPILER__vulkanLib_Debug D$:\Softwares\Clion\IP\vulkanWrapper\device.cpp || cmake_object_order_depends_target_vulkanLib
+build vulkanWrapper\CMakeFiles\vulkanLib.dir\Device.cpp.obj: CXX_COMPILER__vulkanLib_Debug D$:\Softwares\Clion\IP\vulkanWrapper\Device.cpp || cmake_object_order_depends_target_vulkanLib
   FLAGS = /DWIN32 /D_WINDOWS /EHsc /Zi /Ob0 /Od /RTC1 -MDd -std:c++17
   INCLUDES = -external:ID:\Softwares\Clion\IP\Thirdparty\glm\include -external:ID:\Softwares\Clion\IP\Thirdparty\glfw\include -external:ID:\Softwares\Clion\IP\Thirdparty\Vulkan\Include -external:W0
   OBJECT_DIR = vulkanWrapper\CMakeFiles\vulkanLib.dir
@@ -131,7 +131,7 @@ build vulkanWrapper\CMakeFiles\vulkanLib.dir\device.cpp.obj: CXX_COMPILER__vulka
   TARGET_COMPILE_PDB = vulkanWrapper\CMakeFiles\vulkanLib.dir\vulkanLib.pdb
   TARGET_PDB = vulkanWrapper\vulkanLib.pdb
 
-build vulkanWrapper\CMakeFiles\vulkanLib.dir\instance.cpp.obj: CXX_COMPILER__vulkanLib_Debug D$:\Softwares\Clion\IP\vulkanWrapper\instance.cpp || cmake_object_order_depends_target_vulkanLib
+build vulkanWrapper\CMakeFiles\vulkanLib.dir\Instance.cpp.obj: CXX_COMPILER__vulkanLib_Debug D$:\Softwares\Clion\IP\vulkanWrapper\Instance.cpp || cmake_object_order_depends_target_vulkanLib
   FLAGS = /DWIN32 /D_WINDOWS /EHsc /Zi /Ob0 /Od /RTC1 -MDd -std:c++17
   INCLUDES = -external:ID:\Softwares\Clion\IP\Thirdparty\glm\include -external:ID:\Softwares\Clion\IP\Thirdparty\glfw\include -external:ID:\Softwares\Clion\IP\Thirdparty\Vulkan\Include -external:W0
   OBJECT_DIR = vulkanWrapper\CMakeFiles\vulkanLib.dir
@@ -139,7 +139,7 @@ build vulkanWrapper\CMakeFiles\vulkanLib.dir\instance.cpp.obj: CXX_COMPILER__vul
   TARGET_COMPILE_PDB = vulkanWrapper\CMakeFiles\vulkanLib.dir\vulkanLib.pdb
   TARGET_PDB = vulkanWrapper\vulkanLib.pdb
 
-build vulkanWrapper\CMakeFiles\vulkanLib.dir\window.cpp.obj: CXX_COMPILER__vulkanLib_Debug D$:\Softwares\Clion\IP\vulkanWrapper\window.cpp || cmake_object_order_depends_target_vulkanLib
+build vulkanWrapper\CMakeFiles\vulkanLib.dir\Window.cpp.obj: CXX_COMPILER__vulkanLib_Debug D$:\Softwares\Clion\IP\vulkanWrapper\Window.cpp || cmake_object_order_depends_target_vulkanLib
   FLAGS = /DWIN32 /D_WINDOWS /EHsc /Zi /Ob0 /Od /RTC1 -MDd -std:c++17
   INCLUDES = -external:ID:\Softwares\Clion\IP\Thirdparty\glm\include -external:ID:\Softwares\Clion\IP\Thirdparty\glfw\include -external:ID:\Softwares\Clion\IP\Thirdparty\Vulkan\Include -external:W0
   OBJECT_DIR = vulkanWrapper\CMakeFiles\vulkanLib.dir
@@ -147,7 +147,39 @@ build vulkanWrapper\CMakeFiles\vulkanLib.dir\window.cpp.obj: CXX_COMPILER__vulka
   TARGET_COMPILE_PDB = vulkanWrapper\CMakeFiles\vulkanLib.dir\vulkanLib.pdb
   TARGET_PDB = vulkanWrapper\vulkanLib.pdb
 
-build vulkanWrapper\CMakeFiles\vulkanLib.dir\windowSurface.cpp.obj: CXX_COMPILER__vulkanLib_Debug D$:\Softwares\Clion\IP\vulkanWrapper\windowSurface.cpp || cmake_object_order_depends_target_vulkanLib
+build vulkanWrapper\CMakeFiles\vulkanLib.dir\WindowSurface.cpp.obj: CXX_COMPILER__vulkanLib_Debug D$:\Softwares\Clion\IP\vulkanWrapper\WindowSurface.cpp || cmake_object_order_depends_target_vulkanLib
+  FLAGS = /DWIN32 /D_WINDOWS /EHsc /Zi /Ob0 /Od /RTC1 -MDd -std:c++17
+  INCLUDES = -external:ID:\Softwares\Clion\IP\Thirdparty\glm\include -external:ID:\Softwares\Clion\IP\Thirdparty\glfw\include -external:ID:\Softwares\Clion\IP\Thirdparty\Vulkan\Include -external:W0
+  OBJECT_DIR = vulkanWrapper\CMakeFiles\vulkanLib.dir
+  OBJECT_FILE_DIR = vulkanWrapper\CMakeFiles\vulkanLib.dir
+  TARGET_COMPILE_PDB = vulkanWrapper\CMakeFiles\vulkanLib.dir\vulkanLib.pdb
+  TARGET_PDB = vulkanWrapper\vulkanLib.pdb
+
+build vulkanWrapper\CMakeFiles\vulkanLib.dir\pipline.cpp.obj: CXX_COMPILER__vulkanLib_Debug D$:\Softwares\Clion\IP\vulkanWrapper\pipline.cpp || cmake_object_order_depends_target_vulkanLib
+  FLAGS = /DWIN32 /D_WINDOWS /EHsc /Zi /Ob0 /Od /RTC1 -MDd -std:c++17
+  INCLUDES = -external:ID:\Softwares\Clion\IP\Thirdparty\glm\include -external:ID:\Softwares\Clion\IP\Thirdparty\glfw\include -external:ID:\Softwares\Clion\IP\Thirdparty\Vulkan\Include -external:W0
+  OBJECT_DIR = vulkanWrapper\CMakeFiles\vulkanLib.dir
+  OBJECT_FILE_DIR = vulkanWrapper\CMakeFiles\vulkanLib.dir
+  TARGET_COMPILE_PDB = vulkanWrapper\CMakeFiles\vulkanLib.dir\vulkanLib.pdb
+  TARGET_PDB = vulkanWrapper\vulkanLib.pdb
+
+build vulkanWrapper\CMakeFiles\vulkanLib.dir\renderPass.cpp.obj: CXX_COMPILER__vulkanLib_Debug D$:\Softwares\Clion\IP\vulkanWrapper\renderPass.cpp || cmake_object_order_depends_target_vulkanLib
+  FLAGS = /DWIN32 /D_WINDOWS /EHsc /Zi /Ob0 /Od /RTC1 -MDd -std:c++17
+  INCLUDES = -external:ID:\Softwares\Clion\IP\Thirdparty\glm\include -external:ID:\Softwares\Clion\IP\Thirdparty\glfw\include -external:ID:\Softwares\Clion\IP\Thirdparty\Vulkan\Include -external:W0
+  OBJECT_DIR = vulkanWrapper\CMakeFiles\vulkanLib.dir
+  OBJECT_FILE_DIR = vulkanWrapper\CMakeFiles\vulkanLib.dir
+  TARGET_COMPILE_PDB = vulkanWrapper\CMakeFiles\vulkanLib.dir\vulkanLib.pdb
+  TARGET_PDB = vulkanWrapper\vulkanLib.pdb
+
+build vulkanWrapper\CMakeFiles\vulkanLib.dir\shader.cpp.obj: CXX_COMPILER__vulkanLib_Debug D$:\Softwares\Clion\IP\vulkanWrapper\shader.cpp || cmake_object_order_depends_target_vulkanLib
+  FLAGS = /DWIN32 /D_WINDOWS /EHsc /Zi /Ob0 /Od /RTC1 -MDd -std:c++17
+  INCLUDES = -external:ID:\Softwares\Clion\IP\Thirdparty\glm\include -external:ID:\Softwares\Clion\IP\Thirdparty\glfw\include -external:ID:\Softwares\Clion\IP\Thirdparty\Vulkan\Include -external:W0
+  OBJECT_DIR = vulkanWrapper\CMakeFiles\vulkanLib.dir
+  OBJECT_FILE_DIR = vulkanWrapper\CMakeFiles\vulkanLib.dir
+  TARGET_COMPILE_PDB = vulkanWrapper\CMakeFiles\vulkanLib.dir\vulkanLib.pdb
+  TARGET_PDB = vulkanWrapper\vulkanLib.pdb
+
+build vulkanWrapper\CMakeFiles\vulkanLib.dir\swapChain.cpp.obj: CXX_COMPILER__vulkanLib_Debug D$:\Softwares\Clion\IP\vulkanWrapper\swapChain.cpp || cmake_object_order_depends_target_vulkanLib
   FLAGS = /DWIN32 /D_WINDOWS /EHsc /Zi /Ob0 /Od /RTC1 -MDd -std:c++17
   INCLUDES = -external:ID:\Softwares\Clion\IP\Thirdparty\glm\include -external:ID:\Softwares\Clion\IP\Thirdparty\glfw\include -external:ID:\Softwares\Clion\IP\Thirdparty\Vulkan\Include -external:W0
   OBJECT_DIR = vulkanWrapper\CMakeFiles\vulkanLib.dir
@@ -163,7 +195,7 @@ build vulkanWrapper\CMakeFiles\vulkanLib.dir\windowSurface.cpp.obj: CXX_COMPILER
 #############################################
 # Link the static library vulkanWrapper\vulkanLib.lib
 
-build vulkanWrapper\vulkanLib.lib: CXX_STATIC_LIBRARY_LINKER__vulkanLib_Debug vulkanWrapper\CMakeFiles\vulkanLib.dir\device.cpp.obj vulkanWrapper\CMakeFiles\vulkanLib.dir\instance.cpp.obj vulkanWrapper\CMakeFiles\vulkanLib.dir\window.cpp.obj vulkanWrapper\CMakeFiles\vulkanLib.dir\windowSurface.cpp.obj
+build vulkanWrapper\vulkanLib.lib: CXX_STATIC_LIBRARY_LINKER__vulkanLib_Debug vulkanWrapper\CMakeFiles\vulkanLib.dir\Device.cpp.obj vulkanWrapper\CMakeFiles\vulkanLib.dir\Instance.cpp.obj vulkanWrapper\CMakeFiles\vulkanLib.dir\Window.cpp.obj vulkanWrapper\CMakeFiles\vulkanLib.dir\WindowSurface.cpp.obj vulkanWrapper\CMakeFiles\vulkanLib.dir\pipline.cpp.obj vulkanWrapper\CMakeFiles\vulkanLib.dir\renderPass.cpp.obj vulkanWrapper\CMakeFiles\vulkanLib.dir\shader.cpp.obj vulkanWrapper\CMakeFiles\vulkanLib.dir\swapChain.cpp.obj
   LANGUAGE_COMPILE_FLAGS = /DWIN32 /D_WINDOWS /EHsc /Zi /Ob0 /Od /RTC1 -MDd
   LINK_FLAGS = /machine:x64
   OBJECT_DIR = vulkanWrapper\CMakeFiles\vulkanLib.dir
