@@ -94,9 +94,14 @@ namespace IP::Wrapper {
 	}
 
 	SwapChain::~SwapChain() {
+
 		for (auto& imageView : mSwapChainImageViews) {
 			vkDestroyImageView(mDevice->getDevice(), imageView, nullptr);
 		}
+
+        for (auto& frameBuffer : mSwapChainFrameBuffers) {
+            vkDestroyFramebuffer(mDevice->getDevice(), frameBuffer, nullptr);
+        }
 
 		if (mSwapChain != VK_NULL_HANDLE) {
 			vkDestroySwapchainKHR(mDevice->getDevice(), mSwapChain, nullptr);
@@ -220,7 +225,6 @@ namespace IP::Wrapper {
         //????FrameBuffer
         mSwapChainFrameBuffers.resize(mImageCount);
         for (int i = 0; i < mImageCount; ++i) {
-
 
             std::array<VkImageView, 1> attachments = { mSwapChainImageViews[i] };
 

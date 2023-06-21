@@ -22,12 +22,15 @@ namespace IP
         mInstance = Wrapper::Instance::create(true);
         mSurface = Wrapper::WindowSurface::create(mInstance, mWindow);
         mDevice = Wrapper::Device::create(mInstance,mSurface);
+
         mSwapChain = Wrapper::SwapChain::create(mDevice, mWindow, mSurface);
 
         mRenderPass = Wrapper::RenderPass::create(mDevice);
         createRenderPass();
 
-        mPipeline = Wrapper::Pipeline::create(mDevice);
+        mSwapChain->createFrameBuffers(mRenderPass);
+
+        mPipeline = Wrapper::Pipeline::create(mDevice,mRenderPass);
         createPipeline();
     }
 
@@ -40,6 +43,7 @@ namespace IP
 
     void Application::cleanUp() {
         mPipeline.reset();
+        mRenderPass.reset();
         mSwapChain.reset();
         mDevice.reset();
         mSurface.reset();

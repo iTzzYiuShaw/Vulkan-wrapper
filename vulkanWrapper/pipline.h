@@ -3,15 +3,15 @@
 #include "../base.h"
 #include "device.h"
 #include "shader.h"
-
+#include "renderPass.h"
 namespace IP::Wrapper {
 
 	class Pipeline {
 	public:
 		using Ptr = std::shared_ptr<Pipeline>;
-		static Ptr create(const Device::Ptr& device) { return std::make_shared<Pipeline>(device); }
+		static Ptr create(const Device::Ptr& device,const RenderPass::Ptr &renderPass) { return std::make_shared<Pipeline>(device,renderPass); }
 
-		Pipeline(const Device::Ptr &device);
+		Pipeline(const Device::Ptr &device, const RenderPass::Ptr &renderPass);
 
 		~Pipeline();
 
@@ -45,8 +45,9 @@ namespace IP::Wrapper {
 		VkPipeline mPipeline{ VK_NULL_HANDLE };
 		VkPipelineLayout mLayout{ VK_NULL_HANDLE };
 		Device::Ptr mDevice{ nullptr };
-		std::vector<Shader::Ptr> mShaders{};
+        RenderPass::Ptr mRenderPass{ nullptr };
 
+		std::vector<Shader::Ptr> mShaders{};
 		std::vector<VkViewport> mViewports{};
 		std::vector<VkRect2D> mScissors{};
 	};
