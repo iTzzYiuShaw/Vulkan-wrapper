@@ -3,6 +3,7 @@
 namespace IP::Wrapper {
 
 	CommandBuffer::CommandBuffer(const Device::Ptr& device, const CommandPool::Ptr& commandPool, bool asSecondary) {
+
 		mDevice = device;
 		mCommandPool = commandPool;
 
@@ -17,7 +18,7 @@ namespace IP::Wrapper {
 		}
 	}
 
-	CommandBuffer::~CommandBuffer() {}//������CommandPool�������������ͷ�
+	CommandBuffer::~CommandBuffer() {}
 
 	void CommandBuffer::begin(VkCommandBufferUsageFlags flag, const VkCommandBufferInheritanceInfo& inheritance) {
 		VkCommandBufferBeginInfo beginInfo{};

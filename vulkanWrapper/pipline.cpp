@@ -87,9 +87,8 @@ namespace IP::Wrapper {
 			vkDestroyPipeline(mDevice->getDevice(), mPipeline, nullptr);
 		}
 
-		//pipeline cache�����Խ�������ݴ��뻺�棬�ڶ��pipeline����ʹ��,Ҳ���Դ浽�ļ�����ͬ�������s
-		/*if (vkCreateGraphicsPipelines(mDevice->getDevice(), VK_NULL_HANDLE, 1, &pipelineCreateInfo, nullptr, &mPipeline) != VK_SUCCESS) {
-			throw std::runtime_error("Error:failed to create pipeline");
-		}*/
+        if (vkCreateGraphicsPipelines(mDevice->getDevice(), VK_NULL_HANDLE, 1, &pipelineCreateInfo, nullptr, &mPipeline) != VK_SUCCESS) {
+            throw std::runtime_error("Error:failed to create pipeline");
+        }
 	}
 }

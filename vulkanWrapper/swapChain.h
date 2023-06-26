@@ -43,6 +43,14 @@ namespace IP::Wrapper {
     public:
         [[nodiscard]] auto getFormat() const { return mSwapChainFormat; }
 
+        [[nodiscard]] auto getImageCount() const { return mImageCount; }
+
+        [[nodiscard]] auto getSwapChain() const { return mSwapChain; }
+
+        [[nodiscard]] auto getFrameBuffer(const int index) const { return mSwapChainFrameBuffers[index]; }
+
+        [[nodiscard]] auto getExtent() const { return mSwapChainExtent; }
+
 	private:
 		VkImageView createImageView(VkImage image, VkFormat format, VkImageAspectFlags aspectFlags, uint32_t mipLevels = 1);
 

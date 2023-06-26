@@ -17,28 +17,20 @@ namespace IP::Wrapper {
 
 		~CommandBuffer();
 
-		//begin  
-		//xxx 
-		//beginRenderPass 
-		//xxxx �󶨸���ʵ������  
-		/*while (n < objectNumber) {
-			objects[i]->recordCommand()
-		}*/
-		//endRenderPass 
-		//end
-		
 		//VkCommandBufferUsageFlags
-		//VK_COMMAND_BUFFER_USAGE_ONE_TIME_SUBMIT_BIT��������ֻ�ᱻʹ���ύһ��
-		//VK_COMMAND_BUFFER_USAGE_RENDER_PASS_CONTINUE_BIT���������壬��һ���������壬λ��һ��renderPass����
-		//VK_COMMAND_BUFFER_USAGE_SIMULTANEOUS_USE_BIT:�����Ѿ����ύ�ˣ�ִ���ڼ䣬�����ٴ��ύ
+		//VK_COMMAND_BUFFER_USAGE_ONE_TIME_SUBMIT_BIT： command will be used once
+		//VK_COMMAND_BUFFER_USAGE_RENDER_PASS_CONTINUE_BIT: This is a secondary buffer, located within the render pass
+		//VK_COMMAND_BUFFER_USAGE_SIMULTANEOUS_USE_BIT: The order has been submitted and it can be submitted again
 
-		//VkCommandBufferInheritanceInfo:�����������Ƕ������壬��ô����ṹ�壬��¼������������������Ϣ/�̳���Ϣ
+		//VkCommandBufferInheritanceInfo:"If this command buffer is a secondary buffer,
+        // then this structure records its associated primary command information and inheritance information
 		void begin(VkCommandBufferUsageFlags flag = 0, const VkCommandBufferInheritanceInfo& inheritance = {});
 
 		//VkSubpassContents:
-		//VK_SUBPASS_CONTENTS_INLINE:��Ⱦָ��ᱻ��¼������壬�������϶������������
-		//VK_SUBPASS_CONTENTS_SECONDARY_COMMAND_BUFFERS:��Ⱦָ������˶���ָ��嵱��,����������������
-		//beginRenderPass��ʱ��&&ʹ���˶�������������£�ʹ��
+		//VK_SUBPASS_CONTENTS_INLINE:Rendering commands are recorded in the command buffer, and this command buffer is the primary command buffer.
+		//VK_SUBPASS_CONTENTS_SECONDARY_COMMAND_BUFFERS:Rendering commands are placed in the secondary command buffer,
+        // which is used when the primary command buffer calls beginRenderpass() and uses the secondary buffer
+
 		void beginRenderPass(const VkRenderPassBeginInfo &renderPassBeginInfo, const VkSubpassContents &subPassContents = VK_SUBPASS_CONTENTS_INLINE);
 
 		void bindGraphicPipeline(const VkPipeline &pipeline);

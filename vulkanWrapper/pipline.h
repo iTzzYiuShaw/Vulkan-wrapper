@@ -40,6 +40,12 @@ namespace IP::Wrapper {
 		VkPipelineLayoutCreateInfo mLayoutState{};
 
 		//TODO : needs render pass and subpass index
+
+    public:
+
+        [[nodiscard]] auto getPipeline() const { return mPipeline; }
+
+
 	private:
 
 		VkPipeline mPipeline{ VK_NULL_HANDLE };

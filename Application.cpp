@@ -32,13 +32,58 @@ namespace IP
 
         mPipeline = Wrapper::Pipeline::create(mDevice,mRenderPass);
         createPipeline();
+
+        mCommandPool = Wrapper::CommandPool::create(mDevice);
+        mCommandBuffers.resize(mSwapChain->getImageCount());
+
+        for (int i = 0; i < mSwapChain->getImageCount(); ++i) {
+            mCommandBuffers[i] = Wrapper::CommandBuffer::create(mDevice, mCommandPool);
+
+            mCommandBuffers[i]->begin();
+
+            VkRenderPassBeginInfo renderBeginInfo{};
+            renderBeginInfo.sType = VK_STRUCTURE_TYPE_RENDER_PASS_BEGIN_INFO;
+            renderBeginInfo.renderPass = mRenderPass->getRenderPass();
+            renderBeginInfo.framebuffer = mSwapChain->getFrameBuffer(i);
+            renderBeginInfo.renderArea.offset = {0, 0};
+            renderBeginInfo.renderArea.extent = mSwapChain->getExtent();
+
+            VkClearValue clearColor = { 0.0f, 0.0f, 0.0f, 1.0f };
+            renderBeginInfo.clearValueCount = 1;
+            renderBeginInfo.pClearValues = &clearColor;
+
+
+            mCommandBuffers[i]->beginRenderPass(renderBeginInfo);
+
+            mCommandBuffers[i]->bindGraphicPipeline(mPipeline->getPipeline());
+
+            mCommandBuffers[i]->draw(3);
+
+            mCommandBuffers[i]->endRenderPass();
+
+            mCommandBuffers[i]->end();
+        }
+
+        for (int i = 0; i < mSwapChain->getImageCount(); ++i) {
+            auto imageSemaphore = Wrapper::Semaphore::create(mDevice);
+            mImageAvailableSemaphores.push_back(imageSemaphore);
+
+            auto renderSemaphore = Wrapper::Semaphore::create(mDevice);
+            mRenderFinishedSemaphores.push_back(renderSemaphore);
+
+            auto fence = Wrapper::Fence::create(mDevice);
+            mFences.push_back(fence);
+        }
     }
 
     void Application::mainLoop() {
         while(!mWindow->shouldClose())
         {
             mWindow->pollEvents();
+            render();
         }
+
+        vkDeviceWaitIdle(mDevice->getDevice());
     }
 
     void Application::cleanUp() {
@@ -50,6 +95,66 @@ namespace IP
         mInstance.reset();
         mWindow.reset();
     }
+    void Application::render() {
+
+        //Waiting for the current commandBuffer to finish execution
+        mFences[mCurrentFrame]->block();
+
+        //Get next frame
+        uint32_t imageIndex{ 0 };
+        vkAcquireNextImageKHR(
+                mDevice->getDevice(),
+                mSwapChain->getSwapChain(),
+                UINT64_MAX,
+                mImageAvailableSemaphores[mCurrentFrame]->getSemaphore(),
+                VK_NULL_HANDLE,
+                &imageIndex);
+
+        //create submit information
+        VkSubmitInfo submitInfo{};
+        submitInfo.sType = VK_STRUCTURE_TYPE_SUBMIT_INFO;
+
+
+        //Synchronize information. Building the dependencies for the render pass to display the image;
+        // color output can only be made after the display is complete
+        VkSemaphore waitSemaphores[] = { mImageAvailableSemaphores[mCurrentFrame]->getSemaphore() };
+        VkPipelineStageFlags waitStages[] = { VK_PIPELINE_STAGE_COLOR_ATTACHMENT_OUTPUT_BIT };
+
+        submitInfo.waitSemaphoreCount = 1;
+        submitInfo.pWaitSemaphores = waitSemaphores;
+        submitInfo.pWaitDstStageMask = waitStages;
+
+        //ָAcquire command buffer
+        auto commandBuffer = mCommandBuffers[imageIndex]->getCommandBuffer();
+        submitInfo.commandBufferCount = 1;
+        submitInfo.pCommandBuffers = &commandBuffer;
+
+        VkSemaphore signalSemaphores[] = { mRenderFinishedSemaphores[mCurrentFrame]->getSemaphore()};
+        submitInfo.signalSemaphoreCount = 1;
+        submitInfo.pSignalSemaphores = signalSemaphores;
+
+        mFences[mCurrentFrame]->resetFence();
+        if (vkQueueSubmit(mDevice->getGraphicQueue(), 1, &submitInfo, mFences[mCurrentFrame]->getFence()) != VK_SUCCESS) {
+            throw std::runtime_error("Error:failed to submit renderCommand");
+        }
+
+        VkPresentInfoKHR presentInfo{};
+        presentInfo.sType = VK_STRUCTURE_TYPE_PRESENT_INFO_KHR;
+
+        presentInfo.waitSemaphoreCount = 1;
+        presentInfo.pWaitSemaphores = signalSemaphores;
+
+        VkSwapchainKHR swapChains[] = {mSwapChain->getSwapChain()};
+        presentInfo.swapchainCount = 1;
+        presentInfo.pSwapchains = swapChains;
+
+        presentInfo.pImageIndices = &imageIndex;
+
+        vkQueuePresentKHR(mDevice->getPresentQueue(), &presentInfo);
+
+        mCurrentFrame = (mCurrentFrame + 1) % mSwapChain->getImageCount();
+    }
+
 
     void Application::createPipeline() {
         //Setting up view port

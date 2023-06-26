@@ -13,6 +13,11 @@
 #include "vulkanWrapper/swapChain.h"
 #include "vulkanWrapper/shader.h"
 #include "vulkanWrapper/pipline.h"
+#include "vulkanWrapper/commandBuffer.h"
+#include "vulkanWrapper/commandPool.h"
+#include "vulkanWrapper/semaphore.h"
+#include "vulkanWrapper/fence.h"
+
 namespace IP
 {
     const int WIDTH = 800;
@@ -33,6 +38,8 @@ namespace IP
 
         void mainLoop();
 
+        void render();
+
         void cleanUp();
 
     private:
@@ -40,6 +47,7 @@ namespace IP
         void createRenderPass();
 
     private:
+        int mCurrentFrame{ 0 };
         Wrapper::Window::Ptr mWindow{ nullptr };
         Wrapper::Instance::Ptr mInstance{ nullptr };
         Wrapper::Device::Ptr mDevice{ nullptr };
@@ -47,6 +55,14 @@ namespace IP
         Wrapper::SwapChain::Ptr mSwapChain{ nullptr };
         Wrapper::Pipeline::Ptr mPipeline{ nullptr };
         Wrapper::RenderPass::Ptr mRenderPass{nullptr};
+
+        Wrapper::CommandPool::Ptr mCommandPool{ nullptr };
+
+        std::vector<Wrapper::CommandBuffer::Ptr> mCommandBuffers{};
+
+        std::vector<Wrapper::Semaphore::Ptr> mImageAvailableSemaphores{};
+        std::vector<Wrapper::Semaphore::Ptr> mRenderFinishedSemaphores{};
+        std::vector<Wrapper::Fence::Ptr> mFences{};
     };
 }
 
