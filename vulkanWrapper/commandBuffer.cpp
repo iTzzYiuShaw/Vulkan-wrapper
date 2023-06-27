@@ -55,4 +55,19 @@ namespace IP::Wrapper {
 			throw std::runtime_error("Error:failed to end Command Buffer");
 		}
 	}
+
+    void CommandBuffer::copyBuffer(VkBuffer srcBuffer, VkBuffer dstBuffer, uint32_t copyInfoCount, const std::vector<VkBufferCopy>& copyInfos) {
+        vkCmdCopyBuffer(mCommandBuffer, srcBuffer, dstBuffer, copyInfoCount, copyInfos.data());
+    }
+
+    void CommandBuffer::submitSync(VkQueue queue, VkFence fence) {
+        VkSubmitInfo submitInfo{};
+        submitInfo.sType = VK_STRUCTURE_TYPE_SUBMIT_INFO;
+        submitInfo.commandBufferCount = 1;
+        submitInfo.pCommandBuffers = &mCommandBuffer;
+
+        vkQueueSubmit(queue, 1, &submitInfo, fence);
+
+        vkQueueWaitIdle(queue);
+    }
 }
