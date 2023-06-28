@@ -101,7 +101,9 @@ namespace IP {
 
 		[[nodiscard]] auto getIndexCount() const { return mIndexDatas.size(); }
 
-	private:
+        [[nodiscard]] auto getUniform() const { return mUniform; }
+
+    private:
 		//std::vector<Vertex> mDatas{};
 		std::vector<float> mPositions{};
 		std::vector<float> mColors{};
@@ -113,5 +115,9 @@ namespace IP {
 		Wrapper::Buffer::Ptr mColorBuffer{ nullptr };
 
 		Wrapper::Buffer::Ptr mIndexBuffer{ nullptr };
+
+        ObjectUniform mUniform;
+
+        float mAngle{ 0.0f };
 	};
 }

@@ -6,6 +6,10 @@
 
 namespace IP::Wrapper {
 
+    static void windowResized(GLFWwindow* window, int width, int height) {
+        auto pUserData = reinterpret_cast<Window*>(glfwGetWindowUserPointer(window));
+        pUserData->mWindowResized = true;
+    }
     //Initialize glfw window
     Window::Window(const int& width, const int& height) {
         mWidth = width;
@@ -14,7 +18,7 @@ namespace IP::Wrapper {
         glfwInit();
 
         glfwWindowHint(GLFW_CLIENT_API, GLFW_NO_API);
-        glfwWindowHint(GLFW_RESIZABLE, GLFW_FALSE);
+        glfwWindowHint(GLFW_RESIZABLE, GLFW_TRUE);
 
         mWindow = glfwCreateWindow(mWidth, mHeight, "vulkan window", nullptr, nullptr);
         if (!mWindow) {

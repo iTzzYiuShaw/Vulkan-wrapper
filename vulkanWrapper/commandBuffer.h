@@ -35,6 +35,15 @@ namespace IP::Wrapper {
 
 		void bindGraphicPipeline(const VkPipeline &pipeline);
 
+        void bindVertexBuffer(const std::vector<VkBuffer> &buffers);
+
+        void bindIndexBuffer(const VkBuffer& buffer);
+
+        void bindDescriptorSet(const VkPipelineLayout layout, const VkDescriptorSet& descriptorSet);
+
+
+        void drawIndex(size_t indexCount);
+
 		void draw(size_t vertexCount);
 
 		void endRenderPass();

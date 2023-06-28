@@ -44,7 +44,7 @@ namespace IP::Wrapper {
     public:
 
         [[nodiscard]] auto getPipeline() const { return mPipeline; }
-
+        [[nodiscard]] auto getLayout() const { return mLayout; }
 
 	private:
 

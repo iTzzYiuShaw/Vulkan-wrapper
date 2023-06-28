@@ -20,8 +20,11 @@ namespace IP::Wrapper {
 		[[nodiscard]] auto getPool() const { return mPool; }
 
 	private:
-		//��Ҫ֪����ÿһ��uniform���ж��ٸ�������Ϊ��Ԥ������ռ䣬��ν�ռ䲢����uniformbuffer�Ĵ�С
-		//���ǣ�����ÿ��uniform��ͬ����ô�������Ͳ�ͬ������˵�ռ�ָ�����������Ĵ�С���̺���ϵͳ�ڲ���
+		/**
+		 * Here, we need to know how many of each type of uniform there are, so that we can reserve space for them.
+		 * The 'space' referred to here is not the size of the uniform buffer, but rather the size of the descriptor,
+		 * which varies depending on the type of uniform. This size of the descriptor is a concept implicit within the system.
+		 */
 		VkDescriptorPool mPool{ VK_NULL_HANDLE };
 		Device::Ptr mDevice{ nullptr };
 	};

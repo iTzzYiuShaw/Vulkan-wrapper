@@ -27,6 +27,8 @@ namespace IP::Wrapper {
 
         [[nodiscard]] auto getWindow() const { return mWindow; }
 
+    public:
+        bool mWindowResized{ false };
     private:
         int mWidth{ 0 };
         int mHeight{ 0 };

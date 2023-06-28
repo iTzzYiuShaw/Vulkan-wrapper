@@ -2,9 +2,8 @@
 
 namespace IP::Wrapper {
 
-	DescriptorPool::DescriptorPool(const Device::Ptr &device) {
-		mDevice = device;
-	}
+	DescriptorPool::DescriptorPool(const Device::Ptr &device) : mDevice(device)
+    {}
 
 	DescriptorPool::~DescriptorPool() {
 		if (mPool != VK_NULL_HANDLE) {
@@ -13,20 +12,23 @@ namespace IP::Wrapper {
 	} 
 
 	void DescriptorPool::build(std::vector<UniformParameter::Ptr>& params, const int& frameCount) {
-		//decriptor
-		//descriptorSet(decriptorA(Buffer), decriptorA, decriptorB)
-		//descriptorSet * N ��Ϊ�����������У�����buffer,��ǰһ֡�ύ��ʱ��������֡���ڻ��Ƶ��У�
-		//����uniformbuffer���������ڱ���ȡ����ʱcpu�˵���һ��ѭ����ȴ������������ݵ��޸�
+
+        /**
+         * In the descriptor set, a buffer is bound.
+         * When a frame is submitted, other frames are being rendered,
+         * which means the uniform buffer might be being read, while in the next loop of the CPU, it modifies the data
+         */
 
 		int uniformBufferCount = 0;
-		//TODO: ������������uniform�ж��ٸ���
+		//TODO: the number of texture uniform
 
 		for (const auto& param : params) {
 			if (param->mDescriptorType == VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER) { uniformBufferCount++; }
-			//TODO
+
+			//TODO: other type of the uniform
 		}
 
-		//����ÿһ��uniform���ж��ٸ�
+		//Describe the number of uniform for each type
 		std::vector<VkDescriptorPoolSize> poolSizes{};
 
 		VkDescriptorPoolSize uniformBufferSize{};
@@ -34,7 +36,7 @@ namespace IP::Wrapper {
 		uniformBufferSize.descriptorCount = uniformBufferCount * frameCount;
 		poolSizes.push_back(uniformBufferSize);
 
-		//����pool
+
 		VkDescriptorPoolCreateInfo createInfo{};
 		createInfo.sType = VK_STRUCTURE_TYPE_DESCRIPTOR_POOL_CREATE_INFO;
 		createInfo.poolSizeCount = static_cast<uint32_t>(poolSizes.size());

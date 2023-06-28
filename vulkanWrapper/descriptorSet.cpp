@@ -8,8 +8,8 @@ namespace IP::Wrapper {
 		const DescriptorSetLayout::Ptr& layout,
 		const DescriptorPool::Ptr& pool,
 		int frameCount
-	) {
-		mDevice = device;
+	) : mDevice(device)
+    {
 
 		std::vector<VkDescriptorSetLayout> layouts(frameCount, layout->getLayout());
 		VkDescriptorSetAllocateInfo allocInfo{};
@@ -23,8 +23,10 @@ namespace IP::Wrapper {
 			throw std::runtime_error("Error: failed to allocate descriptor sets");
 		}
 
+
+
 		for (int i = 0; i < frameCount; ++i) {
-			//��ÿ��DescriptorSet��������Ҫ��params�����������Ϣ��д������
+
 			std::vector<VkWriteDescriptorSet> descriptorSetWrites{};
 			for (const auto& param : params) {
 				VkWriteDescriptorSet descriptorSetWrite{};
