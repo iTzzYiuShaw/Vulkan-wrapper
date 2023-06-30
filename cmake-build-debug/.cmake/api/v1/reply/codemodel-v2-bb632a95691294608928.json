@@ -1,0 +1,113 @@
+{
+	"configurations" : 
+	[
+		{
+			"directories" : 
+			[
+				{
+					"build" : ".",
+					"childIndexes" : 
+					[
+						1,
+						2
+					],
+					"jsonFile" : "directory-.-Debug-d0094a50bb2071803777.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.24"
+					},
+					"projectIndex" : 0,
+					"source" : ".",
+					"targetIndexes" : 
+					[
+						0
+					]
+				},
+				{
+					"build" : "vulkanWrapper",
+					"jsonFile" : "directory-vulkanWrapper-Debug-d56a645eb8cfb81bf611.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.24"
+					},
+					"parentIndex" : 0,
+					"projectIndex" : 0,
+					"source" : "vulkanWrapper",
+					"targetIndexes" : 
+					[
+						2
+					]
+				},
+				{
+					"build" : "texture",
+					"jsonFile" : "directory-texture-Debug-f99f97d141f0f51e690d.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.24"
+					},
+					"parentIndex" : 0,
+					"projectIndex" : 0,
+					"source" : "texture",
+					"targetIndexes" : 
+					[
+						1
+					]
+				}
+			],
+			"name" : "Debug",
+			"projects" : 
+			[
+				{
+					"directoryIndexes" : 
+					[
+						0,
+						1,
+						2
+					],
+					"name" : "IndividualProject",
+					"targetIndexes" : 
+					[
+						0,
+						1,
+						2
+					]
+				}
+			],
+			"targets" : 
+			[
+				{
+					"directoryIndex" : 0,
+					"id" : "IndividualProject::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-IndividualProject-Debug-dcf9fabb10b28e45db3c.json",
+					"name" : "IndividualProject",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 2,
+					"id" : "textureLib::@0ce9fcebade5c774587a",
+					"jsonFile" : "target-textureLib-Debug-5b3b8a5fede8e03e7ce8.json",
+					"name" : "textureLib",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 1,
+					"id" : "vulkanLib::@bae46c50c73266557b9b",
+					"jsonFile" : "target-vulkanLib-Debug-aac84cd070702d3360d4.json",
+					"name" : "vulkanLib",
+					"projectIndex" : 0
+				}
+			]
+		}
+	],
+	"kind" : "codemodel",
+	"paths" : 
+	{
+		"build" : "D:/Softwares/Clion/IP/cmake-build-debug",
+		"source" : "D:/Softwares/Clion/IP"
+	},
+	"version" : 
+	{
+		"major" : 2,
+		"minor" : 4
+	}
+}
