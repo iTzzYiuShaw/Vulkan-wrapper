@@ -9,9 +9,8 @@ namespace IP::Wrapper {
 		createInfo.sType = VK_STRUCTURE_TYPE_COMMAND_POOL_CREATE_INFO;
 		createInfo.queueFamilyIndex = device->getGraphicQueueFamily().value();
 
-
-		//VK_COMMAND_POOL_CREATE_RESET_COMMAND_BUFFER_BIT: Command buffer can be updated and reset separately
-		//VK_COMMAND_POOL_CREATE_TRANSIENT_BIT: Command buffers must be reset of updated together
+        //VK_COMMAND_POOL_CREATE_RESET_COMMAND_BUFFER_BIT: Command buffer can be updated and reset separately
+        //VK_COMMAND_POOL_CREATE_TRANSIENT_BIT: Command buffers must be reset of updated together
 		createInfo.flags = flag;
 
 		if (vkCreateCommandPool(mDevice->getDevice(), &createInfo, nullptr, &mCommandPool) != VK_SUCCESS) {

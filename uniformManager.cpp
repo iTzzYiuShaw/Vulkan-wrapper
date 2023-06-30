@@ -8,7 +8,8 @@ UniformManager::~UniformManager() {
 
 }
 
-void UniformManager::init(const Wrapper::Device::Ptr& device, int frameCount) {
+void UniformManager::init(const Wrapper::Device::Ptr& device, const Wrapper::CommandPool::Ptr& commandPool, int frameCount) {
+	mDevice = device;
 
 	auto vpParam = Wrapper::UniformParameter::create();
 	vpParam->mBinding = 0;
@@ -38,6 +39,14 @@ void UniformManager::init(const Wrapper::Device::Ptr& device, int frameCount) {
 
 	mUniformParams.push_back(objectParam);
 
+	auto textureParam = Wrapper::UniformParameter::create();
+	textureParam->mBinding = 2;
+	textureParam->mCount = 1;
+	textureParam->mDescriptorType = VK_DESCRIPTOR_TYPE_COMBINED_IMAGE_SAMPLER;
+	textureParam->mStage = VK_SHADER_STAGE_FRAGMENT_BIT;
+	textureParam->mTexture = Texture::create(mDevice, commandPool, "assets/car/car.jpg");
+
+	mUniformParams.push_back(textureParam);
 
 	mDescriptorSetLayout = Wrapper::DescriptorSetLayout::create(device);
 	mDescriptorSetLayout->build(mUniformParams);
@@ -46,6 +55,7 @@ void UniformManager::init(const Wrapper::Device::Ptr& device, int frameCount) {
 	mDescriptorPool->build(mUniformParams, frameCount);
 
 	mDescriptorSet = Wrapper::DescriptorSet::create(device, mUniformParams, mDescriptorSetLayout, mDescriptorPool, frameCount);
+
 }
 
 void UniformManager::update(const VPMatrices& vpMatrices, const ObjectUniform& objectUniform, const int& frameCount) {

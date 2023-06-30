@@ -3,7 +3,6 @@
 namespace IP::Wrapper {
 
 	CommandBuffer::CommandBuffer(const Device::Ptr& device, const CommandPool::Ptr& commandPool, bool asSecondary) {
-
 		mDevice = device;
 		mCommandPool = commandPool;
 
@@ -19,10 +18,10 @@ namespace IP::Wrapper {
 	}
 
 	CommandBuffer::~CommandBuffer() {
-        if (mCommandBuffer != VK_NULL_HANDLE) {
-            vkFreeCommandBuffers(mDevice->getDevice(), mCommandPool->getCommandPool(), 1, &mCommandBuffer);
-        }
-    }
+		if (mCommandBuffer != VK_NULL_HANDLE) {
+			vkFreeCommandBuffers(mDevice->getDevice(), mCommandPool->getCommandPool(), 1, &mCommandBuffer);
+		}
+	}
 
 	void CommandBuffer::begin(VkCommandBufferUsageFlags flag, const VkCommandBufferInheritanceInfo& inheritance) {
 		VkCommandBufferBeginInfo beginInfo{};
@@ -46,30 +45,29 @@ namespace IP::Wrapper {
 		vkCmdBindPipeline(mCommandBuffer, VK_PIPELINE_BIND_POINT_GRAPHICS, pipeline);
 	}
 
-    void CommandBuffer::bindVertexBuffer(const std::vector<VkBuffer>& buffers) {
-        std::vector<VkDeviceSize> offsets(buffers.size(), 0);
+	void CommandBuffer::bindVertexBuffer(const std::vector<VkBuffer>& buffers) {
+		std::vector<VkDeviceSize> offsets(buffers.size(), 0);
 
-        vkCmdBindVertexBuffers(mCommandBuffer, 0, static_cast<uint32_t>(buffers.size()), buffers.data(), offsets.data());
-    }
+		vkCmdBindVertexBuffers(mCommandBuffer, 0, static_cast<uint32_t>(buffers.size()), buffers.data(), offsets.data());
+	}
 
-    void CommandBuffer::bindDescriptorSet(const VkPipelineLayout layout, const VkDescriptorSet &descriptorSet) {
-        vkCmdBindDescriptorSets(mCommandBuffer, VK_PIPELINE_BIND_POINT_GRAPHICS, layout, 0, 1, &descriptorSet, 0, nullptr);
-    }
+	void CommandBuffer::bindIndexBuffer(const VkBuffer& buffer) {
+		vkCmdBindIndexBuffer(mCommandBuffer, buffer, 0, VK_INDEX_TYPE_UINT32);
+	}
 
-    void CommandBuffer::bindIndexBuffer(const VkBuffer& buffer) {
-        vkCmdBindIndexBuffer(mCommandBuffer, buffer, 0, VK_INDEX_TYPE_UINT32);
-    }
+	void CommandBuffer::bindDescriptorSet(const VkPipelineLayout layout, const VkDescriptorSet &descriptorSet) {
+		vkCmdBindDescriptorSets(mCommandBuffer, VK_PIPELINE_BIND_POINT_GRAPHICS, layout, 0, 1, &descriptorSet, 0, nullptr);
+	}
 
 	void CommandBuffer::draw(size_t vertexCount) {
 		vkCmdDraw(mCommandBuffer, vertexCount, 1, 0, 0);
 	}
 
-    void CommandBuffer::drawIndex(size_t indexCount) {
-        vkCmdDrawIndexed(mCommandBuffer, indexCount, 1, 0, 0, 0);
-    }
+	void CommandBuffer::drawIndex(size_t indexCount) {
+		vkCmdDrawIndexed(mCommandBuffer, indexCount, 1, 0, 0, 0);
+	}
 
-
-    void CommandBuffer::endRenderPass() {
+	void CommandBuffer::endRenderPass() {
 		vkCmdEndRenderPass(mCommandBuffer);
 	}
 
@@ -79,18 +77,48 @@ namespace IP::Wrapper {
 		}
 	}
 
-    void CommandBuffer::copyBuffer(VkBuffer srcBuffer, VkBuffer dstBuffer, uint32_t copyInfoCount, const std::vector<VkBufferCopy>& copyInfos) {
-        vkCmdCopyBuffer(mCommandBuffer, srcBuffer, dstBuffer, copyInfoCount, copyInfos.data());
-    }
+	void CommandBuffer::copyBufferToBuffer(VkBuffer srcBuffer, VkBuffer dstBuffer, uint32_t copyInfoCount, const std::vector<VkBufferCopy>& copyInfos) {
+		vkCmdCopyBuffer(mCommandBuffer, srcBuffer, dstBuffer, copyInfoCount, copyInfos.data());
+	}
 
-    void CommandBuffer::submitSync(VkQueue queue, VkFence fence) {
-        VkSubmitInfo submitInfo{};
-        submitInfo.sType = VK_STRUCTURE_TYPE_SUBMIT_INFO;
-        submitInfo.commandBufferCount = 1;
-        submitInfo.pCommandBuffers = &mCommandBuffer;
+	void CommandBuffer::copyBufferToImage(VkBuffer srcBuffer, VkImage dstImage, VkImageLayout dstImageLayout, uint32_t width, uint32_t height) {
+		VkBufferImageCopy region{};
+		region.bufferOffset = 0;
 
-        vkQueueSubmit(queue, 1, &submitInfo, fence);
+		//为0代表不需要进行padding
+		region.bufferRowLength = 0;
+		region.bufferImageHeight = 0;
 
-        vkQueueWaitIdle(queue);
-    }
+		region.imageSubresource.aspectMask = VK_IMAGE_ASPECT_COLOR_BIT;
+		region.imageSubresource.mipLevel = 0;
+		region.imageSubresource.baseArrayLayer = 0;
+		region.imageSubresource.layerCount = 1;
+		region.imageOffset = {0, 0, 0};
+		region.imageExtent = {width, height, 1};
+
+		vkCmdCopyBufferToImage(mCommandBuffer, srcBuffer, dstImage, dstImageLayout, 1, &region);
+	}
+
+	void CommandBuffer::submitSync(VkQueue queue, VkFence fence) {
+		VkSubmitInfo submitInfo{};
+		submitInfo.sType = VK_STRUCTURE_TYPE_SUBMIT_INFO;
+		submitInfo.commandBufferCount = 1;
+		submitInfo.pCommandBuffers = &mCommandBuffer;
+
+		vkQueueSubmit(queue, 1, &submitInfo, fence);
+
+		vkQueueWaitIdle(queue);
+	}
+
+	void CommandBuffer::transferImageLayout(const VkImageMemoryBarrier &imageMemoryBarrier, VkPipelineStageFlags srcStageMask, VkPipelineStageFlags dstStageMask) {
+		vkCmdPipelineBarrier(
+			mCommandBuffer, 
+			srcStageMask, 
+			dstStageMask, 
+			0, 
+			0, nullptr,//MemoryBarrier
+			0, nullptr, //BufferMemoryBarrier
+			1, &imageMemoryBarrier
+			);
+	}
 }

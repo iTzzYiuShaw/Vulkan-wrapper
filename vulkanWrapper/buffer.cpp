@@ -26,20 +26,34 @@ namespace IP::Wrapper {
 
 		return buffer;
 	}
+	Buffer::Ptr Buffer::createUniformBuffer(const Device::Ptr& device, VkDeviceSize size, void* pData) {
+		auto buffer = Buffer::create(
+			device, size,
+			VK_BUFFER_USAGE_UNIFORM_BUFFER_BIT,
+			VK_MEMORY_PROPERTY_HOST_VISIBLE_BIT | VK_MEMORY_PROPERTY_HOST_COHERENT_BIT
+		);
 
-    Buffer::Ptr Buffer::createUniformBuffer(const Device::Ptr& device, VkDeviceSize size, void* pData) {
-        auto buffer = Buffer::create(
-                device, size,
-                VK_BUFFER_USAGE_UNIFORM_BUFFER_BIT,
-                VK_MEMORY_PROPERTY_HOST_VISIBLE_BIT | VK_MEMORY_PROPERTY_HOST_COHERENT_BIT
-        );
+		if (pData != nullptr) {
+			buffer->updateBufferByStage(pData, size);
+		}
 
-        if (pData != nullptr) {
-            buffer->updateBufferByStage(pData, size);
-        }
+		return buffer;
+	}
 
-        return buffer;
-    }
+	Buffer::Ptr Buffer::createStageBuffer(const Device::Ptr& device, VkDeviceSize size, void* pData) {
+		auto buffer = Buffer::create(
+			device, size,
+			VK_BUFFER_USAGE_TRANSFER_SRC_BIT,
+			VK_MEMORY_PROPERTY_HOST_VISIBLE_BIT | VK_MEMORY_PROPERTY_HOST_COHERENT_BIT
+		);
+
+		if (pData != nullptr) {
+			buffer->updateBufferByMap(pData, size);
+		}
+
+		return buffer;
+	}
+
 
 	Buffer::Buffer(const Device::Ptr& device, VkDeviceSize size, VkBufferUsageFlags usage, VkMemoryPropertyFlags properties) {
 		mDevice = device;
@@ -54,7 +68,7 @@ namespace IP::Wrapper {
 			throw std::runtime_error("Error:failed to create buffer");
 		}
 
-		//Creating a device memory space
+        //Creating a device memory space
 		VkMemoryRequirements memReq{};
 		vkGetBufferMemoryRequirements(mDevice->getDevice(), mBuffer, &memReq);
 
@@ -63,7 +77,7 @@ namespace IP::Wrapper {
 		allocInfo.sType = VK_STRUCTURE_TYPE_MEMORY_ALLOCATE_INFO;
 		allocInfo.allocationSize = memReq.size;
 
-		//����������buffer������ڴ����͵�ID�ǣ�0x001 0x010
+
 		allocInfo.memoryTypeIndex = findMemoryType(memReq.memoryTypeBits, properties);
 
 		if (vkAllocateMemory(mDevice->getDevice(), &allocInfo, nullptr, &mBufferMemory) != VK_SUCCESS) {
@@ -71,6 +85,10 @@ namespace IP::Wrapper {
 		}
 
 		vkBindBufferMemory(mDevice->getDevice(), mBuffer, mBufferMemory, 0);
+
+		mBufferInfo.buffer = mBuffer;
+		mBufferInfo.offset = 0;
+		mBufferInfo.range = size;
 	}
 
 	Buffer::~Buffer() {
@@ -84,26 +102,27 @@ namespace IP::Wrapper {
 	}
 
     /**
-     *
-     * @param typeFilter is a bit mask where each bit corresponds to a possible memory type. If a bit in the mask is set (1),
-     * then the corresponding memory type is considered acceptable; if it is not set (0), then the corresponding memory type is not considered.
-     * @param properties  is a set of flags representing the properties that the required memory type should have.
-     * @return index of this memory type
-     * This piece of code is used to find a memory type that fulfills certain property requirements.
-     * The body of the function is a loop, checking each potential memory type.
-     * If a memory type is within the filter set by typeFilter and its properties meet the requirements set by properties, then the function returns the index of this memory type.
-     *
-     */
+      *
+      * @param typeFilter is a bit mask where each bit corresponds to a possible memory type. If a bit in the mask is set (1),
+      * then the corresponding memory type is considered acceptable; if it is not set (0), then the corresponding memory type is not considered.
+      * @param properties  is a set of flags representing the properties that the required memory type should have.
+      * @return index of this memory type
+      * This piece of code is used to find a memory type that fulfills certain property requirements.
+      * The body of the function is a loop, checking each potential memory type.
+      * If a memory type is within the filter set by typeFilter and its properties meet the requirements set by properties, then the function returns the index of this memory type.
+      *
+      */
 	uint32_t Buffer::findMemoryType(uint32_t typeFilter, VkMemoryPropertyFlags properties) {
 		VkPhysicalDeviceMemoryProperties memProps;
 		vkGetPhysicalDeviceMemoryProperties(mDevice->getPhysicalDevice(), &memProps);
 
-		// if 0x001 | 0x100 = 0x101  i = 0 ;���  1 << i 1   i = 1 0x010
+
         /**
          * The & operator here is the bitwise AND operator.
          * It compares each bit of typeFilter to the corresponding bit of (1 << i).
          * If both bits are 1, the corresponding result bit is set to 1. Otherwise, the result bit is set to 0.
          */
+
 		for (uint32_t i = 0; i < memProps.memoryTypeCount; ++i) {
 			if ((typeFilter & (1 << i)) && ((memProps.memoryTypes[i].propertyFlags & properties) == properties)) {
 				return i;
@@ -114,8 +133,8 @@ namespace IP::Wrapper {
 	}
 
 	void Buffer::updateBufferByMap(void* data, size_t size) {
-
 		void* memPtr = nullptr;
+
 		vkMapMemory(mDevice->getDevice(), mBufferMemory, 0, size, 0, &memPtr);
 		memcpy(memPtr, data, size);
 		vkUnmapMemory(mDevice->getDevice(), mBufferMemory);
@@ -138,7 +157,7 @@ namespace IP::Wrapper {
 		VkBufferCopy copyInfo{};
 		copyInfo.size = size;
 		
-		commandBuffer->copyBuffer(srcBuffer, dstBuffer, 1, { copyInfo });
+		commandBuffer->copyBufferToBuffer(srcBuffer, dstBuffer, 1, { copyInfo });
 
 		commandBuffer->end();
 

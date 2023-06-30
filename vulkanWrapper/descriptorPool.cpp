@@ -2,8 +2,9 @@
 
 namespace IP::Wrapper {
 
-	DescriptorPool::DescriptorPool(const Device::Ptr &device) : mDevice(device)
-    {}
+	DescriptorPool::DescriptorPool(const Device::Ptr &device) {
+		mDevice = device;
+	}
 
 	DescriptorPool::~DescriptorPool() {
 		if (mPool != VK_NULL_HANDLE) {
@@ -20,21 +21,26 @@ namespace IP::Wrapper {
          */
 
 		int uniformBufferCount = 0;
-		//TODO: the number of texture uniform
+		int textureCount = 0;
+
 
 		for (const auto& param : params) {
 			if (param->mDescriptorType == VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER) { uniformBufferCount++; }
-
-			//TODO: other type of the uniform
+			if (param->mDescriptorType == VK_DESCRIPTOR_TYPE_COMBINED_IMAGE_SAMPLER) { textureCount++; }
 		}
 
-		//Describe the number of uniform for each type
+        //Describe the number of uniform for each type
 		std::vector<VkDescriptorPoolSize> poolSizes{};
 
 		VkDescriptorPoolSize uniformBufferSize{};
 		uniformBufferSize.type = VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER;
 		uniformBufferSize.descriptorCount = uniformBufferCount * frameCount;
 		poolSizes.push_back(uniformBufferSize);
+
+		VkDescriptorPoolSize textureSize{};
+		textureSize.type = VK_DESCRIPTOR_TYPE_COMBINED_IMAGE_SAMPLER;
+		textureSize.descriptorCount = textureCount * frameCount;
+		poolSizes.push_back(textureSize);
 
 
 		VkDescriptorPoolCreateInfo createInfo{};

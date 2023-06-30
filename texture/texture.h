@@ -6,7 +6,7 @@
 #include "../vulkanWrapper/device.h"
 #include "../vulkanWrapper/commandPool.h"
 
-namespace FF {
+namespace IP {
 
 	class Texture {
 	public:

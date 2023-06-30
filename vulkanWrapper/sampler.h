@@ -3,7 +3,7 @@
 #include "../base.h"
 #include "device.h"
 
-namespace FF::Wrapper {
+namespace IP::Wrapper {
 
 	class Sampler {
 	public:

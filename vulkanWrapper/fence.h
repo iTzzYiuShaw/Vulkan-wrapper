@@ -5,10 +5,10 @@
 
 namespace IP::Wrapper {
     /**
-     * A fence is a synchronization primitive used to manage a batch submission to a queue.
-     * This is different from a semaphore, which manages dependencies between different execution stages within a single command submission.
-     * A fence controls all commands submitted at once to a queue. Fences have two states, signaled and unsignaled, and can be controlled at the API level
-     */
+       * A fence is a synchronization primitive used to manage a batch submission to a queue.
+       * This is different from a semaphore, which manages dependencies between different execution stages within a single command submission.
+       * A fence controls all commands submitted at once to a queue. Fences have two states, signaled and unsignaled, and can be controlled at the API level
+       */
 	class Fence {
 	public:
 		using Ptr = std::shared_ptr<Fence>;
@@ -20,10 +20,10 @@ namespace IP::Wrapper {
 
 		~Fence();
 
-		//Set the fence to be unsignaled
+        //Set the fence to be unsignaled
 		void resetFence();
 
-		//If the fence is unsignaled, then the program will be blocked.
+        //If the fence is unsignaled, then the program will be blocked.
 		void block(uint64_t timeout = UINT64_MAX);
 
 		[[nodiscard]] auto getFence() const { return mFence; }

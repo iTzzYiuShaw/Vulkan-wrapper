@@ -1,20 +1,16 @@
-//
-// Created by Shawwy on 6/13/2023.
-//
 #pragma once
-#ifndef INDIVIDUALPROJECT_APPLICATION_H
-#define INDIVIDUALPROJECT_APPLICATION_H
 
 #include "base.h"
-#include "vulkanWrapper/Instance.h"
-#include "vulkanWrapper/Device.h"
-#include "vulkanWrapper/Window.h"
-#include "vulkanWrapper/WindowSurface.h"
+#include "vulkanWrapper/instance.h"
+#include "vulkanWrapper/device.h"
+#include "vulkanWrapper/window.h"
+#include "vulkanWrapper/windowSurface.h"
 #include "vulkanWrapper/swapChain.h"
 #include "vulkanWrapper/shader.h"
-#include "vulkanWrapper/pipline.h"
-#include "vulkanWrapper/commandBuffer.h"
+#include "vulkanWrapper/pipeline.h"
+#include "vulkanWrapper/renderPass.h"
 #include "vulkanWrapper/commandPool.h"
+#include "vulkanWrapper/commandBuffer.h"
 #include "vulkanWrapper/semaphore.h"
 #include "vulkanWrapper/fence.h"
 #include "vulkanWrapper/buffer.h"
@@ -23,69 +19,75 @@
 #include "vulkanWrapper/descriptorSet.h"
 #include "vulkanWrapper/description.h"
 #include "uniformManager.h"
+#include "vulkanWrapper/image.h"
+#include "vulkanWrapper/sampler.h"
+#include "texture/texture.h"
+#include "Camera.h"
+
 #include "model.h"
 
-namespace IP
-{
-    const int WIDTH = 800;
-    const int HEIGHT = 600;
+namespace IP {
 
-    class Application {
-    public:
-        Application() = default;
 
-        ~Application() = default;
+	class Application:public std::enable_shared_from_this<Application> {
+	public:
+		Application() = default;
 
-        void run();
+		~Application() = default;
 
-    private:
-        void initWindow();
+		void run();
 
-        void initVulkan();
+		void onMouseMove(double xpos, double ypos);
 
-        void mainLoop();
+		void onKeyDown(CAMERA_MOVE moveDirection);
 
-        void render();
+	private:
+		void initWindow();
 
-        void cleanUp();
+		void initVulkan();
 
-    private:
-        unsigned int mWidth{ 800 };
-        unsigned int mHeight{ 600 };
+		void mainLoop();
 
-    private:
-        void createPipeline();
-        void createRenderPass();
+		void render();
 
-        void createCommandBuffers();
-        void createSyncObjects();
+		void cleanUp();
 
-        void recreateSwapChain();
-        void cleanupSwapChain();
+	private:
+		void createPipeline();
+		void createRenderPass();
+		void createCommandBuffers();
+		void createSyncObjects();
 
-    private:
-        int mCurrentFrame{ 0 };
-        Wrapper::Window::Ptr mWindow{ nullptr };
-        Wrapper::Instance::Ptr mInstance{ nullptr };
-        Wrapper::Device::Ptr mDevice{ nullptr };
-        Wrapper::WindowSurface::Ptr mSurface{ nullptr };
-        Wrapper::SwapChain::Ptr mSwapChain{ nullptr };
-        Wrapper::Pipeline::Ptr mPipeline{ nullptr };
-        Wrapper::RenderPass::Ptr mRenderPass{nullptr};
-        Wrapper::CommandPool::Ptr mCommandPool{ nullptr };
+		//重建交换链:  当窗口大小发生变化的时候，交换链也要发生变化，Frame View Pipeline RenderPass Sync
+		void recreateSwapChain();
 
-        std::vector<Wrapper::CommandBuffer::Ptr> mCommandBuffers{};
-        std::vector<Wrapper::Semaphore::Ptr> mImageAvailableSemaphores{};
-        std::vector<Wrapper::Semaphore::Ptr> mRenderFinishedSemaphores{};
-        std::vector<Wrapper::Fence::Ptr> mFences{};
+		void cleanupSwapChain();
 
-        UniformManager::Ptr mUniformManager{ nullptr };
+	private:
+		unsigned int mWidth{ 800 };
+		unsigned int mHeight{ 600 };
 
-        Model::Ptr	mModel{ nullptr };
-        VPMatrices	mVPMatrices;
-    };
+	private:
+		int mCurrentFrame{ 0 };
+		Wrapper::Window::Ptr mWindow{ nullptr };
+		Wrapper::Instance::Ptr mInstance{ nullptr };
+		Wrapper::Device::Ptr mDevice{ nullptr };
+		Wrapper::WindowSurface::Ptr mSurface{ nullptr };
+		Wrapper::SwapChain::Ptr mSwapChain{ nullptr };
+		Wrapper::Pipeline::Ptr mPipeline{ nullptr };
+		Wrapper::RenderPass::Ptr mRenderPass{ nullptr };
+		Wrapper::CommandPool::Ptr mCommandPool{ nullptr };
+
+		std::vector<Wrapper::CommandBuffer::Ptr> mCommandBuffers{};
+
+		std::vector<Wrapper::Semaphore::Ptr> mImageAvailableSemaphores{};
+		std::vector<Wrapper::Semaphore::Ptr> mRenderFinishedSemaphores{};
+		std::vector<Wrapper::Fence::Ptr> mFences{};
+
+		UniformManager::Ptr mUniformManager{ nullptr };
+
+		Model::Ptr	mModel{ nullptr };
+		VPMatrices	mVPMatrices;
+		Camera      mCamera;
+	};
 }
-
-
-
-#endif //INDIVIDUALPROJECT_APPLICATION_H

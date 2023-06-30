@@ -4,14 +4,15 @@
 #include "device.h"
 
 namespace IP::Wrapper {
-	/**
-	 *1 attachment
-	 * VkAttachmentDescription: Describing a structure for a color or depth stencil attachment, it's not a real attachment, but a mere description.
-	 * VkAttachmentDescription1 VkAttachmentDescription2 VkAttachmentDescription3 VkAttachmentDescription4: Announce what formats are required to the external processes
-	 * VkAttachmentReference: Illustrate which attachment among all attachments is required, including its index and expected format
-	 * VkSubpassDescription:
-	 * VkSubpassDependency: Describe dependencies between different subpasses
-	*/
+
+    /**
+     *1 attachment
+     * VkAttachmentDescription: Describing a structure for a color or depth stencil attachment, it's not a real attachment, but a mere description.
+     * VkAttachmentDescription1 VkAttachmentDescription2 VkAttachmentDescription3 VkAttachmentDescription4: Announce what formats are required to the external processes
+     * VkAttachmentReference: Illustrate which attachment among all attachments is required, including its index and expected format
+     * VkSubpassDescription:
+     * VkSubpassDependency: Describe dependencies between different subpasses
+    */
 	class SubPass {
 	public:
 		SubPass();
@@ -24,6 +25,8 @@ namespace IP::Wrapper {
 
 		void setDepthStencilAttachmentReference(const VkAttachmentReference& ref);
 
+		void setResolveAttachmentReference(const VkAttachmentReference& ref);
+
 		void buildSubPassDescription();
 
 		[[nodiscard]] auto getSubPassDescription() const { return mSubPassDescription; }
@@ -33,11 +36,9 @@ namespace IP::Wrapper {
 		std::vector<VkAttachmentReference> mColorAttachmentReferences{};
 		std::vector<VkAttachmentReference> mInputAttachmentReferences{};
 		VkAttachmentReference mDepthStencilAttachmentReference{};
+		VkAttachmentReference mResolvedAttachmentReference{};
 	};
 
-
-
-    //Render pass
 	class RenderPass {
 	public:
 		using Ptr = std::shared_ptr<RenderPass>;

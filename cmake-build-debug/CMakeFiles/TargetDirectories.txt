@@ -4,3 +4,6 @@ D:/Softwares/Clion/IP/cmake-build-debug/CMakeFiles/rebuild_cache.dir
 D:/Softwares/Clion/IP/cmake-build-debug/vulkanWrapper/CMakeFiles/vulkanLib.dir
 D:/Softwares/Clion/IP/cmake-build-debug/vulkanWrapper/CMakeFiles/edit_cache.dir
 D:/Softwares/Clion/IP/cmake-build-debug/vulkanWrapper/CMakeFiles/rebuild_cache.dir
+D:/Softwares/Clion/IP/cmake-build-debug/texture/CMakeFiles/textureLib.dir
+D:/Softwares/Clion/IP/cmake-build-debug/texture/CMakeFiles/edit_cache.dir
+D:/Softwares/Clion/IP/cmake-build-debug/texture/CMakeFiles/rebuild_cache.dir

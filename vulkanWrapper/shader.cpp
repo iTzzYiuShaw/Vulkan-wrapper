@@ -3,8 +3,8 @@
 namespace IP::Wrapper {
 
 	static std::vector<char> readBinary(const std::string& fileName) {
-
 		std::ifstream file(fileName.c_str(), std::ios::ate | std::ios::binary | std::ios::in);
+
 		if (!file) {
 			throw std::runtime_error("Error: failed to open shader file");
 		}

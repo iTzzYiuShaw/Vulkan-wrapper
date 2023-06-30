@@ -8,8 +8,8 @@ namespace IP::Wrapper {
 		const DescriptorSetLayout::Ptr& layout,
 		const DescriptorPool::Ptr& pool,
 		int frameCount
-	) : mDevice(device)
-    {
+	) {
+		mDevice = device;
 
 		std::vector<VkDescriptorSetLayout> layouts(frameCount, layout->getLayout());
 		VkDescriptorSetAllocateInfo allocInfo{};
@@ -22,8 +22,6 @@ namespace IP::Wrapper {
 		if (vkAllocateDescriptorSets(mDevice->getDevice(), &allocInfo, &mDescriptorSets[0]) != VK_SUCCESS) {
 			throw std::runtime_error("Error: failed to allocate descriptor sets");
 		}
-
-
 
 		for (int i = 0; i < frameCount; ++i) {
 
@@ -42,7 +40,7 @@ namespace IP::Wrapper {
 				}
 
 				if (param->mDescriptorType == VK_DESCRIPTOR_TYPE_COMBINED_IMAGE_SAMPLER) {
-					//TODO
+					descriptorSetWrite.pImageInfo = &param->mTexture->getImageInfo();
 				}
 
 				descriptorSetWrites.push_back(descriptorSetWrite);

@@ -3,7 +3,7 @@
 #define STB_IMAGE_IMPLEMENTATION
 #include "../stb_image.h"
 
-namespace FF {
+namespace IP {
 
 	Texture::Texture(const Wrapper::Device::Ptr& device, const Wrapper::CommandPool::Ptr & commandPool, const std::string& imageFilePath) {
 		mDevice = device;

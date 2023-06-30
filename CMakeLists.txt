@@ -18,7 +18,8 @@ link_directories(
 )
 
 add_subdirectory(vulkanWrapper)
+add_subdirectory(texture)
 
 add_executable(IndividualProject ${DIRSRCS} model.h)
 
-target_link_libraries(IndividualProject vulkanLib vulkan-1.lib glfw3.lib)
+target_link_libraries(IndividualProject vulkanLib textureLib vulkan-1.lib glfw3.lib)

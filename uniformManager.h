@@ -5,6 +5,8 @@
 #include "vulkanWrapper/descriptorPool.h"
 #include "vulkanWrapper/descriptorSet.h"
 #include "vulkanWrapper/description.h"
+#include "vulkanWrapper/device.h"
+#include "vulkanWrapper/commandPool.h"
 #include "base.h"
 
 using namespace IP;
@@ -18,7 +20,7 @@ public:
 
 	~UniformManager();
 
-	void init(const Wrapper::Device::Ptr &device, int frameCount);
+	void init(const Wrapper::Device::Ptr &device, const Wrapper::CommandPool::Ptr &commandPool, int frameCount);
 
 	void update(const VPMatrices &vpMatrices, const ObjectUniform &objectUniform, const int& frameCount);
 
@@ -27,6 +29,7 @@ public:
 	[[nodiscard]] auto getDescriptorSet(int frameCount) const { return mDescriptorSet->getDescriptorSet(frameCount); }
 
 private:
+	Wrapper::Device::Ptr mDevice{ nullptr };
 	std::vector<Wrapper::UniformParameter::Ptr> mUniformParams;
 
 	Wrapper::DescriptorSetLayout::Ptr mDescriptorSetLayout{ nullptr };
